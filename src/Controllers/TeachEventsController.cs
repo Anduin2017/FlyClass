@@ -131,9 +131,9 @@ public class TeachEventsController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
-        ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", "Id", teachEvent.ClassTypeId);
-        ViewData["SiteId"] = new SelectList(_context.Sites, "Id", "Id", teachEvent.SiteId);
-        ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", "Id", teachEvent.TeacherId);
+        ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", nameof(ClassType.Name), teachEvent.ClassTypeId);
+        ViewData["SiteId"] = new SelectList(_context.Sites, "Id", nameof(Site.SiteName), teachEvent.SiteId);
+        ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", nameof(Teacher.ChineseName), teachEvent.TeacherId);
         return View(teachEvent);
     }
 
