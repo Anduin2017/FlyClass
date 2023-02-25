@@ -2,21 +2,26 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using FlyClass.Models;
+using FlyClass.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlyClass.Controllers;
 
 [Authorize]
 public class AccountController : Controller
 {
+    private readonly ApplicationDbContext _context;
     private readonly UserManager<Teacher> _userManager;
     private readonly SignInManager<Teacher> _signInManager;
     private readonly ILogger _logger;
 
     public AccountController(
+        ApplicationDbContext context,
         UserManager<Teacher> userManager,
         SignInManager<Teacher> signInManager,
         ILoggerFactory loggerFactory)
     {
+        _context = context;
         _userManager = userManager;
         _signInManager = signInManager;
         _logger = loggerFactory.CreateLogger<AccountController>();
@@ -86,7 +91,13 @@ public class AccountController : Controller
         ViewData["ReturnUrl"] = returnUrl;
         if (ModelState.IsValid)
         {
-            var user = new Teacher { UserName = model.Email, Email = model.Email };
+            var defaultLevel = await this._context.Levels.FirstAsync();
+            var user = new Teacher 
+            { 
+                UserName = model.Email, 
+                Email = model.Email,
+                LevelId = defaultLevel.Id
+            };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {

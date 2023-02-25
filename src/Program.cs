@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using FlyClass.Data;
 using FlyClass.Models;
@@ -33,5 +33,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapDefaultControllerRoute();
+
+var db = app.Services.CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContext>();
+if (!await db.Levels.AnyAsync())
+{
+    db.Levels.Add(new Level 
+    {
+        Name = "Default"
+    });
+    await db.SaveChangesAsync();
+}
 
 app.Run();

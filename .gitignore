@@ -5,3 +5,5 @@ obj
 .vs
 .db
 appsettings.Development.json
+app.db*
+app.db

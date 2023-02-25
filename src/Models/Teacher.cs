@@ -30,7 +30,7 @@ public class TeachEvent
     public int Times { get; set; }
     public string Comments { get; set; }
 
-    public int TeacherId { get; set; }
+    public string TeacherId { get; set; }
     [ForeignKey(nameof(TeacherId))]
     public Teacher Teacher { get; set; }
 
