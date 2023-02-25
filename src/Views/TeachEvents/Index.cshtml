@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<FlyClass.Models.TeachEvent>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "教学历史管理";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">新增一条教学记录</a>
 </p>
 <table class="table">
     <thead>
@@ -30,36 +30,43 @@
             <th>
                 @Html.DisplayNameFor(model => model.ClassType)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsApproved)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Times)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Teacher.ChineseName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Site.SiteName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClassType.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Times)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teacher.ChineseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Site.SiteName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsApproved)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

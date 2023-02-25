@@ -29,27 +29,40 @@
             </div>
             <div class="form-group">
                 <label asp-for="TeacherId" class="control-label"></label>
-                <select asp-for="TeacherId" class ="form-control" asp-items="ViewBag.TeacherId"></select>
+                <select asp-for="TeacherId" class="form-control" asp-items="ViewBag.TeacherId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="SiteId" class="control-label"></label>
-                <select asp-for="SiteId" class ="form-control" asp-items="ViewBag.SiteId"></select>
+                <select asp-for="SiteId" class="form-control" asp-items="ViewBag.SiteId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="ClassTypeId" class="control-label"></label>
-                <select asp-for="ClassTypeId" class ="form-control" asp-items="ViewBag.ClassTypeId"></select>
+                <select asp-for="ClassTypeId" class="form-control" asp-items="ViewBag.ClassTypeId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <label asp-for="IsApproved">
+                            <input asp-for="IsApproved" />
+                            @Html.DisplayNameFor(m => m.IsApproved)
+                        </label>
+                    </div>
+                </div>
             </div>
+            <div class="form-group">
+                <input type="submit" value="创建" class="btn btn-primary" />
+            </div>
+
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">返回列表</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

@@ -25,7 +25,8 @@ namespace FlyClass.Controllers
             var applicationDbContext = _context.TeachEvents
                 .Include(t => t.ClassType)
                 .Include(t => t.Site)
-                .Include(t => t.Teacher);
+                .Include(t => t.Teacher)
+                .OrderByDescending(t => t.EventTime);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -94,9 +95,9 @@ namespace FlyClass.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", "Id", teachEvent.ClassTypeId);
-            ViewData["SiteId"] = new SelectList(_context.Sites, "Id", "Id", teachEvent.SiteId);
-            ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", "Id", teachEvent.TeacherId);
+            ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", nameof(ClassType.Name), teachEvent.ClassTypeId);
+            ViewData["SiteId"] = new SelectList(_context.Sites, "Id", nameof(Site.SiteName), teachEvent.SiteId);
+            ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", nameof(Teacher.ChineseName), teachEvent.TeacherId);
             return View(teachEvent);
         }
 
@@ -105,7 +106,7 @@ namespace FlyClass.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EventTime,Times,Comments,TeacherId,SiteId,ClassTypeId")] TeachEvent teachEvent)
+        public async Task<IActionResult> Edit(int id, TeachEvent teachEvent)
         {
             if (id != teachEvent.Id)
             {

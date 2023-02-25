@@ -44,6 +44,16 @@
                 <span asp-validation-for="ClassTypeId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <div class="checkbox">
+                        <label asp-for="IsApproved">
+                            <input asp-for="IsApproved" />
+                            @Html.DisplayNameFor(m => m.IsApproved)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -55,5 +65,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

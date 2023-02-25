@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlyClass.Models;
 
 public class Teacher : IdentityUser
 {
+    [Display(Name = "中文姓名")]
     public string ChineseName { get; set; }
 
     public int LevelId { get; set; }
@@ -18,6 +20,7 @@ public class Teacher : IdentityUser
 public class Level
 {
     public int Id { get; set; }
+    [Display(Name = "教师等级")]
     public string Name { get; set; }
 
     [InverseProperty(nameof(Teacher.Level))]
@@ -27,29 +30,39 @@ public class Level
 public class TeachEvent
 {
     public int Id { get; set; }
-
+    [Display(Name = "上课时间")]
     public DateTime EventTime { get; set; } = DateTime.UtcNow;
+    [Display(Name = "上课次数")]
     public int Times { get; set; }
+    [Display(Name = "备注")]
     public string Comments { get; set; }
 
+    [Display(Name = "任课教师")]
     public string TeacherId { get; set; }
+    [Display(Name = "任课教师")]
     [ForeignKey(nameof(TeacherId))]
     public Teacher Teacher { get; set; }
 
+    [Display(Name = "校区")]
     public int SiteId { get; set; }
+    [Display(Name = "校区")]
     [ForeignKey(nameof(SiteId))]
     public Site Site { get; set; }
 
+    [Display(Name = "课程类型")]
     public int ClassTypeId { get; set; }
     [ForeignKey(nameof(ClassTypeId))]
+    [Display(Name = "课程类型")]
     public ClassType ClassType { get; set; }
 
+    [Display(Name = "已经审批通过")]
     public bool IsApproved { get; set; } = false;
 }
 
 public class Site
 {
     public int Id { get; set; }
+    [Display(Name = "校区名称")]
     public string SiteName { get; set; }
 
     [InverseProperty(nameof(TeachEvent.Site))]
@@ -59,6 +72,7 @@ public class Site
 public class ClassType
 {
     public int Id { get; set; }
+    [Display(Name = "课程类型")]
     public string Name { get; set; }
 
 
