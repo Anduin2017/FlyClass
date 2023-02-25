@@ -10,7 +10,7 @@ public class Teacher : IdentityUser
     public Level Level { get; set; }
 
     [InverseProperty(nameof(TeachEvent.Teacher))]
-    public IEnumerable<TeachEvent> TeachEvents { get; set; }
+    public IEnumerable<TeachEvent> TeachEvents { get; set; } = new List<TeachEvent>();
 }
 
 public class Level
@@ -19,7 +19,7 @@ public class Level
     public string Name { get; set; }
 
     [InverseProperty(nameof(Teacher.Level))]
-    public IEnumerable<Teacher> Teachers { get; set; }
+    public IEnumerable<Teacher> Teachers { get; set; } = new List<Teacher>();
 }
 
 public class TeachEvent
@@ -49,7 +49,7 @@ public class Site
     public string SiteName { get; set; }
 
     [InverseProperty(nameof(TeachEvent.Site))]
-    public IEnumerable<TeachEvent> TeachEvents { get; set; }
+    public IEnumerable<TeachEvent> TeachEvents { get; set; } = new List<TeachEvent>();
 }
 
 public class ClassType
@@ -59,7 +59,7 @@ public class ClassType
 
 
     [InverseProperty(nameof(TeachEvent.ClassType))]
-    public IEnumerable<TeachEvent> TeachEvents { get; set; }
+    public IEnumerable<TeachEvent> TeachEvents { get; set; } = new List<TeachEvent>();
 }
 
 public class MoneyMap
