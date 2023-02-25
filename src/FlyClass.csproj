@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<TargetFramework>net7.0</TargetFramework>
-		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>aspnet-FlyClass-e8896e4b-4610-43d7-8e6c-712acb2f9036</UserSecretsId>
 	</PropertyGroup>

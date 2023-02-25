@@ -5,6 +5,8 @@ namespace FlyClass.Models;
 
 public class Teacher : IdentityUser
 {
+    public string ChineseName { get; set; }
+
     public int LevelId { get; set; }
     [ForeignKey(nameof(LevelId))]
     public Level Level { get; set; }
@@ -41,6 +43,8 @@ public class TeachEvent
     public int ClassTypeId { get; set; }
     [ForeignKey(nameof(ClassTypeId))]
     public ClassType ClassType { get; set; }
+
+    public bool IsApproved { get; set; } = false;
 }
 
 public class Site

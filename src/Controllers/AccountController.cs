@@ -94,9 +94,10 @@ public class AccountController : Controller
             var defaultLevel = await this._context.Levels.FirstAsync();
             var user = new Teacher 
             { 
-                UserName = model.Email, 
+                ChineseName = model.Name, 
+                UserName = model.Email,
                 Email = model.Email,
-                LevelId = defaultLevel.Id
+                LevelId = defaultLevel.Id,
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)

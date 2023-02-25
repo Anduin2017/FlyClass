@@ -3,6 +3,7 @@ using System;
 using FlyClass.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlyClass.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230225114121_AddName")]
+    partial class AddName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
@@ -24,6 +27,7 @@ namespace FlyClass.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -38,6 +42,7 @@ namespace FlyClass.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -76,6 +81,7 @@ namespace FlyClass.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SiteName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -93,18 +99,17 @@ namespace FlyClass.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Comments")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EventTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsApproved")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("SiteId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("TeacherId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Times")
@@ -130,6 +135,7 @@ namespace FlyClass.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ChineseName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -356,7 +362,9 @@ namespace FlyClass.Migrations
 
                     b.HasOne("FlyClass.Models.Teacher", "Teacher")
                         .WithMany("TeachEvents")
-                        .HasForeignKey("TeacherId");
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ClassType");
 

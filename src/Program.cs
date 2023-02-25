@@ -8,7 +8,15 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlite(connectionString));
 
-builder.Services.AddIdentity<Teacher, IdentityRole>()
+builder.Services.AddIdentity<Teacher, IdentityRole>(options => options.Password = new PasswordOptions
+{
+    RequireNonAlphanumeric = false,
+    RequireDigit = false,
+    RequiredLength = 6,
+    RequiredUniqueChars = 0,
+    RequireLowercase = false,
+    RequireUppercase = false
+})
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
@@ -37,7 +45,7 @@ app.MapDefaultControllerRoute();
 var db = app.Services.CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContext>();
 if (!await db.Levels.AnyAsync())
 {
-    db.Levels.Add(new Level 
+    db.Levels.Add(new Level
     {
         Name = "Default"
     });
