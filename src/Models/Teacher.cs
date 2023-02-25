@@ -86,11 +86,14 @@ public class MoneyMap
 
     public int LevelId { get; set; }
     [ForeignKey(nameof(LevelId))]
+    [Display(Name = "教师等级")]
     public Level Level { get; set; }
 
     public int ClassTypeId { get; set; }
     [ForeignKey(nameof(ClassTypeId))]
+    [Display(Name = "课程类型")]
     public ClassType ClassType { get; set; }
 
+    [Display(Name = "课时费")]
     public int Bonus { get; set; }
 }
