@@ -1,13 +1,11 @@
 ﻿@model FlyClass.Models.MoneyMap
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "创建新的课时费规则";
 }
 
-<h1>Create</h1>
+<h1>@ViewData["Title"]</h1>
 
-<h4>MoneyMap</h4>
-<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -26,14 +24,14 @@
                 <span asp-validation-for="Bonus" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="创建规则" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">返回规则设置</a>
 </div>
 
 @section Scripts {

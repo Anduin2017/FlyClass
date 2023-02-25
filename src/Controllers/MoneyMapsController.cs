@@ -24,7 +24,10 @@ public class MoneyMapsController : Controller
     // GET: MoneyMaps
     public async Task<IActionResult> Index()
     {
-        var applicationDbContext = _context.MoneyMaps.Include(m => m.ClassType).Include(m => m.Level);
+        var applicationDbContext = _context
+            .MoneyMaps
+            .Include(m => m.ClassType)
+            .Include(m => m.Level);
         return View(await applicationDbContext.ToListAsync());
     }
 
@@ -63,7 +66,16 @@ public class MoneyMapsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,LevelId,ClassTypeId,Bonus")] MoneyMap moneyMap)
     {
-        if (ModelState.IsValid)
+        var conflictData = await _context.MoneyMaps
+            .Where(m => m.LevelId == moneyMap.LevelId)
+            .Where(m => m.ClassTypeId == moneyMap.ClassTypeId)
+            .AnyAsync();
+        if (conflictData)
+        {
+            ModelState.AddModelError(string.Empty, "设置冲突！这个课时费规则已经存在！请直接修改现有数据！");
+        }
+
+        if (!conflictData && ModelState.IsValid)
         {
             _context.Add(moneyMap);
             await _context.SaveChangesAsync();
@@ -163,13 +175,13 @@ public class MoneyMapsController : Controller
         {
             _context.MoneyMaps.Remove(moneyMap);
         }
-        
+
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool MoneyMapExists(int id)
     {
-      return _context.MoneyMaps.Any(e => e.Id == id);
+        return _context.MoneyMaps.Any(e => e.Id == id);
     }
 }
