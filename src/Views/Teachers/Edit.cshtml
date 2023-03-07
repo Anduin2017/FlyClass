@@ -19,6 +19,11 @@
                 <span asp-validation-for="ChineseName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="LevelId" class="control-label"></label>
+                <select asp-for="LevelId" class="form-control" asp-items="ViewBag.LevelId"></select>
+                <span asp-validation-for="LevelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

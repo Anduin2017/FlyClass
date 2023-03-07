@@ -15,6 +15,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ChineseName)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Level)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -24,6 +27,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.ChineseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level.Name)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">编辑</a> |

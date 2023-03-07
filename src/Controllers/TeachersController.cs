@@ -9,6 +9,7 @@ using FlyClass.Data;
 using FlyClass.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using FlyClass.Models.TeachersViewModels;
 
 namespace FlyClass.Controllers;
 
@@ -29,15 +30,13 @@ public class TeachersController : Controller
         _context = context;
     }
 
-    // GET: Teachers
     public async Task<IActionResult> Index()
     {
           return _context.Teachers != null ? 
-                      View(await _context.Teachers.ToListAsync()) :
+                      View(await _context.Teachers.Include(t => t.Level).ToListAsync()) :
                       Problem("Entity set 'ApplicationDbContext.Teachers'  is null.");
     }
 
-    // GET: Teachers/Details/5
     public async Task<IActionResult> Details(string id)
     {
         if (id == null || _context.Teachers == null)
@@ -55,42 +54,38 @@ public class TeachersController : Controller
         return View(teacher);
     }
 
-    // GET: Teachers/Create
     public IActionResult Create()
     {
         return View();
     }
 
-    // POST: Teachers/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Teacher teacher)
+    public async Task<IActionResult> Create(CreateTeacherAddressModel newTeacher)
     {
         if (ModelState.IsValid)
         {
             var defaultLevel = await this._context.Levels.FirstAsync();
             var user = new Teacher
             {
-                ChineseName = teacher.ChineseName,
-                UserName = teacher.Email,
-                Email = teacher.Email,
+                ChineseName = newTeacher.ChineseName,
+                UserName = newTeacher.Email,
+                Email = newTeacher.Email,
                 LevelId = defaultLevel.Id,
             };
-            var result = await userManager.CreateAsync(user, teacher.PasswordHash);
-            if (result.Errors.Any())
+            var result = await userManager.CreateAsync(user, newTeacher.Password);
+            if (!result.Succeeded)
             {
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-                return View(teacher);
+                return View(newTeacher);
             }
 
             return RedirectToAction(nameof(Index));
         }
-        return View(teacher);
+        return View(newTeacher);
     }
 
     // GET: Teachers/Edit/5
@@ -106,6 +101,8 @@ public class TeachersController : Controller
         {
             return NotFound();
         }
+
+        ViewData["LevelId"] = new SelectList(_context.Levels, "Id", nameof(Level.Name));
         return View(teacher);
     }
 
@@ -127,6 +124,7 @@ public class TeachersController : Controller
             {
                 var teacherInDb = await _context.Teachers.FindAsync(id);
                 teacherInDb.ChineseName = model.ChineseName;
+                teacherInDb.LevelId = model.LevelId;
                 _context.Update(teacherInDb);
                 await _context.SaveChangesAsync();
             }
@@ -143,6 +141,7 @@ public class TeachersController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
+        ViewData["LevelId"] = new SelectList(_context.Levels, "Id", nameof(Level.Name));
         return View(model);
     }
 

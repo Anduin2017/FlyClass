@@ -329,13 +329,13 @@ namespace FlyClass.Migrations
                     b.HasOne("FlyClass.Models.ClassType", "ClassType")
                         .WithMany()
                         .HasForeignKey("ClassTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FlyClass.Models.Level", "Level")
                         .WithMany()
                         .HasForeignKey("LevelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ClassType");
@@ -348,13 +348,13 @@ namespace FlyClass.Migrations
                     b.HasOne("FlyClass.Models.ClassType", "ClassType")
                         .WithMany("TeachEvents")
                         .HasForeignKey("ClassTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FlyClass.Models.Site", "Site")
                         .WithMany("TeachEvents")
                         .HasForeignKey("SiteId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FlyClass.Models.Teacher", "Teacher")
@@ -373,7 +373,7 @@ namespace FlyClass.Migrations
                     b.HasOne("FlyClass.Models.Level", "Level")
                         .WithMany("Teachers")
                         .HasForeignKey("LevelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Level");
@@ -384,7 +384,7 @@ namespace FlyClass.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -393,7 +393,7 @@ namespace FlyClass.Migrations
                     b.HasOne("FlyClass.Models.Teacher", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -402,7 +402,7 @@ namespace FlyClass.Migrations
                     b.HasOne("FlyClass.Models.Teacher", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -411,13 +411,13 @@ namespace FlyClass.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("FlyClass.Models.Teacher", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -426,7 +426,7 @@ namespace FlyClass.Migrations
                     b.HasOne("FlyClass.Models.Teacher", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

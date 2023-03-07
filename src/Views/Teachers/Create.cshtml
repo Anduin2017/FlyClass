@@ -1,12 +1,12 @@
-﻿@model FlyClass.Models.Teacher
+﻿@model FlyClass.Models.TeachersViewModels.CreateTeacherAddressModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "创建教师";
 }
 
-<h1>Create</h1>
+<h1>@ViewData["Title"]</h1>
 
-<h4>Level</h4>
+<h4>教师</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,19 +24,19 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="PasswordHash" class="control-label"></label>
-                <input asp-for="PasswordHash" type="password" class="form-control" />
-                <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" type="password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="注册新的教师" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">返回教师列表</a>
 </div>
 
 @section Scripts {
