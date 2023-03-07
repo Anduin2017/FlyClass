@@ -56,7 +56,6 @@ app.Run();
 async Task Seed(IServiceProvider services)
 {
     var db = services.GetRequiredService<ApplicationDbContext>();
-    await db.Database.EnsureCreatedAsync();
     await db.Database.MigrateAsync();
     var userManager = services.GetRequiredService<UserManager<Teacher>>();
     if (!await db.Levels.AnyAsync())
