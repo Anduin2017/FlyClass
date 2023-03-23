@@ -9,6 +9,7 @@ public class Teacher : IdentityUser
     [Display(Name = "中文姓名")]
     public string ChineseName { get; set; }
 
+    [Display(Name = "教师等级")]
     public int LevelId { get; set; }
     [ForeignKey(nameof(LevelId))]
     [Display(Name = "教师等级")]
@@ -21,7 +22,7 @@ public class Teacher : IdentityUser
 public class Level
 {
     public int Id { get; set; }
-    [Display(Name = "教师等级")]
+    [Display(Name = "教师等级名称")]
     public string Name { get; set; }
 
     [InverseProperty(nameof(Teacher.Level))]
