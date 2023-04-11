@@ -6,11 +6,19 @@ using Microsoft.AspNetCore.HttpOverrides;
 using NuGet.DependencyResolver;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using FlyClass.Migrations;
+using EFCoreSecondLevelCacheInterceptor;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-builder.Services.AddDbContextPool<ApplicationDbContext>(options => options.UseSqlite(connectionString));
+builder.Services.AddDbContextPool<ApplicationDbContext>((serviceProvider, optionsBuilder) =>
+    optionsBuilder.UseSqlite(connectionString)
+        .AddInterceptors(serviceProvider.GetRequiredService<SecondLevelCacheInterceptor>()));
+builder.Services.AddEFSecondLevelCache(options =>
+{
+    options.UseMemoryCacheProvider().DisableLogging(true);
+    options.CacheAllQueries(CacheExpirationMode.Sliding, TimeSpan.FromMinutes(30));
+});
 
 builder.Services.AddIdentity<Teacher, IdentityRole>(options => options.Password = new PasswordOptions
 {
