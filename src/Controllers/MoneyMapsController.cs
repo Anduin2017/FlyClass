@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using FlyClass.Data;
 using FlyClass.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Data;
 
 namespace FlyClass.Controllers;
 

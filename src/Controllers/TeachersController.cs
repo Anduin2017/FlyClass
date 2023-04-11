@@ -10,21 +10,25 @@ using FlyClass.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using FlyClass.Models.TeachersViewModels;
+using System.Data;
 
 namespace FlyClass.Controllers;
 
 [Authorize(Roles = "Admin")]
 public class TeachersController : Controller
 {
+    private readonly RoleManager<IdentityRole> roleManager;
     private readonly UserManager<Teacher> userManager;
     private readonly SignInManager<Teacher> signInManager;
     private readonly ApplicationDbContext _context;
 
     public TeachersController(
+        RoleManager<IdentityRole> roleManager,
         UserManager<Teacher> userManager,
         SignInManager<Teacher> signInManager,
         ApplicationDbContext context)
     {
+        this.roleManager = roleManager;
         this.userManager = userManager;
         this.signInManager = signInManager;
         _context = context;
@@ -103,7 +107,13 @@ public class TeachersController : Controller
         }
 
         ViewData["LevelId"] = new SelectList(_context.Levels, "Id", nameof(Level.Name));
-        return View(teacher);
+        return View(new EditTeacherViewModel 
+        {
+            Id = id,
+            ChineseName = teacher.ChineseName,
+            LevelId = teacher.LevelId,
+            IsAdmin = await userManager.IsInRoleAsync(teacher, "Admin")
+        });
     }
 
     // POST: Teachers/Edit/5
@@ -111,7 +121,7 @@ public class TeachersController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(string id, Teacher model)
+    public async Task<IActionResult> Edit(string id, EditTeacherViewModel model)
     {
         if (id != model.Id)
         {
@@ -125,6 +135,15 @@ public class TeachersController : Controller
                 var teacherInDb = await _context.Teachers.FindAsync(id);
                 teacherInDb.ChineseName = model.ChineseName;
                 teacherInDb.LevelId = model.LevelId;
+                if (model.IsAdmin)
+                {
+                    await userManager.AddToRoleAsync(teacherInDb, "Admin");
+                }
+                else
+                {
+                    await userManager.RemoveFromRoleAsync(teacherInDb, "Admin");
+                }
+
                 _context.Update(teacherInDb);
                 await _context.SaveChangesAsync();
             }
