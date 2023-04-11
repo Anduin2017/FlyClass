@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FlyClass.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class LevelsController : Controller
 {
     private readonly ApplicationDbContext _context;

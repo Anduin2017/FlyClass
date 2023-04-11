@@ -13,7 +13,7 @@ using FlyClass.Models.TeachersViewModels;
 
 namespace FlyClass.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class TeachersController : Controller
 {
     private readonly UserManager<Teacher> userManager;

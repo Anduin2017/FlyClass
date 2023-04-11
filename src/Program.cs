@@ -80,6 +80,7 @@ async Task Seed(IServiceProvider services)
     var db = services.GetRequiredService<ApplicationDbContext>();
     await db.Database.MigrateAsync();
     var userManager = services.GetRequiredService<UserManager<Teacher>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     if (!await db.Levels.AnyAsync())
     {
         await db.Levels.AddAsync(new Level
@@ -157,5 +158,13 @@ async Task Seed(IServiceProvider services)
             LevelId = defaultLevel.Id,
         };
         var result = await userManager.CreateAsync(user, "admin123");
+
+        var role = await roleManager.FindByNameAsync("Admin");
+        if (role == null)
+        {
+            role = new IdentityRole("Admin");
+            await roleManager.CreateAsync(role);
+        }
+        await userManager.AddToRoleAsync(user, role.Name);
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FlyClass.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class TeachEventsController : Controller
 {
     private readonly ApplicationDbContext _context;
