@@ -28,6 +28,6 @@ public class SubmitIndexViewModel
     public int Times { get; set; } = 1;
 
     [Display(Name = "附属备注信息")]
-    [Required]
+    [Required(ErrorMessage = "稍微描述一下今天教了什么吧。")]
     public string Comments { get; set; }
 }
