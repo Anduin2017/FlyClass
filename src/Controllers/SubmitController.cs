@@ -39,6 +39,13 @@ public class SubmitController : Controller
             return View(nameof(Index), model);
         }
 
+        var user = await _context.Users.FindAsync(GetUserId(User));
+
+        var money = await _context.MoneyMaps
+            .Where(m => m.ClassTypeId == model.ClassTypeId)
+            .Where(m => m.LevelId == user.LevelId)
+            .SingleAsync();
+
         await _context.TeachEvents.AddAsync(new TeachEvent
         {
             Times = model.Times,
@@ -50,6 +57,7 @@ public class SubmitController : Controller
             EventTime =
                 model.EventTime == TimeStatus.Today ? DateTime.UtcNow :
                 model.EventTime == TimeStatus.Yesterday ? DateTime.UtcNow.AddDays(-1) : throw new InvalidOperationException(),
+            MoneyPaid = money.Bonus * model.Times
         });
         await _context.SaveChangesAsync();
 
