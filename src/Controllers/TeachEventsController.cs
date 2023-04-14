@@ -50,11 +50,11 @@ public class TeachEventsController : Controller
     }
 
     // GET: TeachEvents/Create
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
-        ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", nameof(ClassType.Name));
-        ViewData["SiteId"] = new SelectList(_context.Sites, "Id", nameof(Site.SiteName));
-        ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", nameof(Teacher.ChineseName));
+        ViewData["ClassTypeId"] = new SelectList(await _context.ClassTypes.ToListAsync(), "Id", nameof(ClassType.Name));
+        ViewData["SiteId"] = new SelectList(await _context.Sites.ToListAsync(), "Id", nameof(Site.SiteName));
+        ViewData["TeacherId"] = new SelectList(await _context.Teachers.ToListAsync(), "Id", nameof(Teacher.ChineseName));
         return View(model: new TeachEvent
         {
             EventTime = DateTime.UtcNow

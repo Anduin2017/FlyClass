@@ -11,13 +11,17 @@ using EFCoreSecondLevelCacheInterceptor;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
+builder.Services.AddMemoryCache();
 builder.Services.AddDbContextPool<ApplicationDbContext>((serviceProvider, optionsBuilder) =>
-    optionsBuilder.UseSqlite(connectionString)
+    optionsBuilder
+        .UseSqlite(connectionString)
         .AddInterceptors(serviceProvider.GetRequiredService<SecondLevelCacheInterceptor>()));
+
 builder.Services.AddEFSecondLevelCache(options =>
 {
     options.UseMemoryCacheProvider().DisableLogging(true);
-    options.CacheAllQueries(CacheExpirationMode.Sliding, TimeSpan.FromMinutes(30));
+
+    // options.CacheAllQueries(CacheExpirationMode.Sliding, TimeSpan.FromMinutes(30));
 });
 
 builder.Services.AddIdentity<Teacher, IdentityRole>(options => options.Password = new PasswordOptions
@@ -42,15 +46,8 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
+app.UseExceptionHandler("/Home/Error");
+app.UseHsts();
 app.UseForwardedHeaders();
 app.UseHttpsRedirection();
 app.UseStaticFiles();

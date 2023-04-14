@@ -1,0 +1,64 @@
+﻿@using FlyClass.Models.SubmitViewModels;
+@model FlyClass.Models.SubmitViewModels.SubmitIndexViewModel
+
+@{
+    ViewData["Title"] = "记录教学日志";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>教学历史</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="EventTime" class="control-label mb-3"></label>
+                <div>
+                    <input type="radio" asp-for="EventTime" value="0" checked />
+                    <label>今天 @(DateTime.UtcNow.ToShortDateString())</label>
+                </div>
+                <div>
+                    <input type="radio" asp-for="EventTime" value="1" />
+                    <label>昨天 @(DateTime.UtcNow.AddDays(-1).ToShortDateString())</label>
+                </div>
+                <span asp-validation-for="EventTime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SiteId" class="control-label"></label>
+                <select asp-for="SiteId" class="form-control" asp-items="ViewBag.SiteId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClassTypeId" class="control-label"></label>
+                <select asp-for="ClassTypeId" class="form-control" asp-items="ViewBag.ClassTypeId"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Comments" class="control-label"></label>
+                <input asp-for="Comments" class="form-control" placeholder="补充教学细节、教学内容等。" />
+                <span asp-validation-for="Comments" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Times" class="control-label"></label>
+                <input asp-for="Times" class="form-control" />
+                <span asp-validation-for="Times" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="提交上课记录" class="btn btn-primary" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
