@@ -14,7 +14,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddMemoryCache();
 builder.Services.AddDbContextPool<ApplicationDbContext>((serviceProvider, optionsBuilder) =>
     optionsBuilder
-        .UseSqlite(connectionString)
+        .UseSqlite(
+            connectionString: connectionString,
+            sqliteOptionsAction: options => options.CommandTimeout(30))
         .AddInterceptors(serviceProvider.GetRequiredService<SecondLevelCacheInterceptor>()));
 
 builder.Services.AddEFSecondLevelCache(options =>
