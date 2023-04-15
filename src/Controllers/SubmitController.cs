@@ -61,7 +61,7 @@ public class SubmitController : Controller
         });
         await _context.SaveChangesAsync();
 
-        return RedirectToAction(nameof(Index), "Home");
+        return RedirectToAction(nameof(Log));
     }
 
     public async Task<IActionResult> Log()
