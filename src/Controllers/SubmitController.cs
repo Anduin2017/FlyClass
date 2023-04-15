@@ -64,6 +64,18 @@ public class SubmitController : Controller
         return RedirectToAction(nameof(Index), "Home");
     }
 
+    public async Task<IActionResult> Log()
+    {
+        var userId = GetUserId(User);
+        var applicationDbContext = _context.TeachEvents
+            .Where(e => e.TeacherId == userId)
+            .Include(t => t.ClassType)
+            .Include(t => t.Site)
+            .Include(t => t.Teacher)
+            .OrderByDescending(t => t.EventTime);
+        return View(await applicationDbContext.ToListAsync());
+    }
+
     public string GetUserId(ClaimsPrincipal user) =>
         user.FindFirstValue(ClaimTypes.NameIdentifier);
 }

@@ -29,5 +29,6 @@ public class SubmitIndexViewModel
 
     [Display(Name = "附属备注信息")]
     [Required(ErrorMessage = "稍微描述一下今天教了什么吧。")]
+    [MaxLength(30, ErrorMessage = "最多填写 {0} 个字。")]
     public string Comments { get; set; }
 }
