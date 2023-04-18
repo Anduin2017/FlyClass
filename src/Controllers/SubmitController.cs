@@ -55,8 +55,8 @@ public class SubmitController : Controller
             ClassTypeId = model.ClassTypeId,
             SiteId = model.SiteId,
             EventTime =
-                model.EventTime == TimeStatus.Today ? DateTime.UtcNow :
-                model.EventTime == TimeStatus.Yesterday ? DateTime.UtcNow.AddDays(-1) : throw new InvalidOperationException(),
+                model.EventTime == TimeStatus.Today ? DateTime.UtcNow.Date :
+                model.EventTime == TimeStatus.Yesterday ? DateTime.UtcNow.Date.AddDays(-1) : throw new InvalidOperationException(),
             MoneyPaid = money.Bonus * model.Times
         });
         await _context.SaveChangesAsync();
