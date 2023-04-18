@@ -38,8 +38,8 @@ public class ReportController : Controller
         var allEvents = await _context.TeachEvents
             .Include(t => t.Teacher)
             .Include(t => t.Site)
-            .Where(t => t.EventTime > start)
-            .Where(t => t.EventTime < end)
+            .Where(t => t.EventTime >= start)
+            .Where(t => t.EventTime <= end)
             .ToListAsync();
 
         return View(new ReportViewModel 
