@@ -7,6 +7,7 @@ using NuGet.DependencyResolver;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using FlyClass.Migrations;
 using EFCoreSecondLevelCacheInterceptor;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -144,6 +145,20 @@ async Task Seed(IServiceProvider services)
         await db.SaveChangesAsync();
     }
 
+    var role = await roleManager.FindByNameAsync("Admin");
+    if (role == null)
+    {
+        role = new IdentityRole("Admin");
+        await roleManager.CreateAsync(role);
+    }
+
+    role = await roleManager.FindByNameAsync("Reviewer");
+    if (role == null)
+    {
+        role = new IdentityRole("Reviewer");
+        await roleManager.CreateAsync(role);
+    }
+
     if (!await db.Teachers.AnyAsync())
     {
         var defaultLevel = await db.Levels.OrderByDescending(t => t.Id).FirstOrDefaultAsync();
@@ -155,13 +170,6 @@ async Task Seed(IServiceProvider services)
             LevelId = defaultLevel.Id,
         };
         var result = await userManager.CreateAsync(user, "admin123");
-
-        var role = await roleManager.FindByNameAsync("Admin");
-        if (role == null)
-        {
-            role = new IdentityRole("Admin");
-            await roleManager.CreateAsync(role);
-        }
-        await userManager.AddToRoleAsync(user, role.Name);
+        await userManager.AddToRoleAsync(user, "Admin");
     }
 }

@@ -112,7 +112,8 @@ public class TeachersController : Controller
             Id = id,
             ChineseName = teacher.ChineseName,
             LevelId = teacher.LevelId,
-            IsAdmin = await userManager.IsInRoleAsync(teacher, "Admin")
+            IsAdmin = await userManager.IsInRoleAsync(teacher, "Admin"),
+            IsReviewer = await userManager.IsInRoleAsync(teacher, "Reviewer")
         });
     }
 
@@ -142,6 +143,15 @@ public class TeachersController : Controller
                 else
                 {
                     await userManager.RemoveFromRoleAsync(teacherInDb, "Admin");
+                }
+
+                if (model.IsReviewer)
+                {
+                    await userManager.AddToRoleAsync(teacherInDb, "Reviewer");
+                }
+                else
+                {
+                    await userManager.RemoveFromRoleAsync(teacherInDb, "Reviewer");
                 }
 
                 _context.Update(teacherInDb);
@@ -192,6 +202,7 @@ public class TeachersController : Controller
             return Problem("Entity set 'ApplicationDbContext.Teachers'  is null.");
         }
         var teacher = await _context.Teachers.FindAsync(id);
+        await userManager.RemoveFromRoleAsync(teacher, "Admin");
         if (teacher != null)
         {
             _context.Teachers.Remove(teacher);

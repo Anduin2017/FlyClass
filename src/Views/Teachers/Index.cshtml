@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<FlyClass.Models.Teacher>
-
+@inject UserManager<Teacher> userManager
 @{
     ViewData["Title"] = "教师管理";
 }
@@ -18,6 +18,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Level)
             </th>
+            <th>
+                是管理员
+            </th>
+            <th>
+                是审批员
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -30,6 +36,18 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Level.Name)
+                </td>
+                <td>
+                    @{
+                        var isAdmin = await userManager.IsInRoleAsync(item, "Admin");
+                    }
+                    @(isAdmin ? "是" : string.Empty)
+                </td>
+                <td>
+                    @{
+                        var isReviewer = await userManager.IsInRoleAsync(item, "Reviewer");
+                    }
+                    @(isReviewer ? "是" : string.Empty)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">编辑</a> |
