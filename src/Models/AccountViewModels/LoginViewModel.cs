@@ -17,7 +17,4 @@ public class LoginViewModel
     [DataType(DataType.Password)]
     [Display(Name ="密码")]
     public string Password { get; set; }
-
-    [Display(Name ="保持登录状态")]
-    public bool RememberMe { get; set; }
 }
