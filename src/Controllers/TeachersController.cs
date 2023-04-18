@@ -111,6 +111,7 @@ public class TeachersController : Controller
         {
             Id = id,
             ChineseName = teacher.ChineseName,
+            Email = teacher.Email,
             LevelId = teacher.LevelId,
             IsAdmin = await userManager.IsInRoleAsync(teacher, "Admin"),
             IsReviewer = await userManager.IsInRoleAsync(teacher, "Reviewer")
@@ -136,6 +137,7 @@ public class TeachersController : Controller
                 var teacherInDb = await _context.Teachers.FindAsync(id);
                 teacherInDb.ChineseName = model.ChineseName;
                 teacherInDb.LevelId = model.LevelId;
+                teacherInDb.Email = model.Email;
                 if (model.IsAdmin)
                 {
                     await userManager.AddToRoleAsync(teacherInDb, "Admin");

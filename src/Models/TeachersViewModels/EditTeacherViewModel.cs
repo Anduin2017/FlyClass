@@ -7,6 +7,11 @@ public class EditTeacherViewModel
     [Display(Name = "中文姓名")]
     public string ChineseName { get; set; }
 
+    [Required]
+    [EmailAddress]
+    [Display(Name = "Email地址（用于登录）")]
+    public string Email { get; set; }
+
     [Display(Name = "教师等级")]
     public int LevelId { get; set; }
 
