@@ -142,7 +142,7 @@ public class ManageController : Controller
         Error
     }
 
-    private Task<Teacher?> GetCurrentUserAsync()
+    private Task<Teacher> GetCurrentUserAsync()
     {
         return _userManager.GetUserAsync(HttpContext.User);
     }

@@ -27,4 +27,5 @@ var initDarkTheme = function () {
 }
 initDarkTheme();
 
-window.matchMedia('(prefers-color-scheme: dark)').addListener(initDarkTheme);
+var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+mediaQuery.addEventListener('change', initDarkTheme);
