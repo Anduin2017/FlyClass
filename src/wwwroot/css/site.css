@@ -1,22 +1,69 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,.55) !important;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .text-muted {
+        color: #8c959d !important;
+    }
+
+    .content-wrapper {
+        color: white !important;
+    }
+
+    .jumbotron {
+        background-color: rgb(30, 32, 36) !important;
+    }
+
+    .breadcrumb {
+        background-color: rgb(42, 43, 45) !important
+    }
+
+    pre {
+        background-color: #444 !important;
+        color: #fff !important;
+    }
+
+    code {
+        background-color: #444 !important;
+        color: #fff !important;
+    }
+
+    .form-control {
+        background-color: rgb(35, 36, 37) !important;
+        color: rgb(240, 234, 224) !important;
+        border-color: rgb(71, 79, 87) !important;
+    }
+
+    .navbar-dark {
+        box-shadow: 0 10px 39px -6px rgba(0, 0, 0, 0.3);
+    }
+
+    .custom-select {
+        color: white !important;
+        background-color: #495057 !important;
+    }
 }
