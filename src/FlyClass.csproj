@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Version>1.0.1</Version>
 		<UserSecretsId>aspnet-FlyClass-e8896e4b-4610-43d7-8e6c-712acb2f9036</UserSecretsId>
 	</PropertyGroup>
 
