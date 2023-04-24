@@ -114,7 +114,8 @@ public class TeachersController : Controller
             Email = teacher.Email,
             LevelId = teacher.LevelId,
             IsAdmin = await userManager.IsInRoleAsync(teacher, "Admin"),
-            IsReviewer = await userManager.IsInRoleAsync(teacher, "Reviewer")
+            IsReviewer = await userManager.IsInRoleAsync(teacher, "Reviewer"),
+            Password = "you-cant-read-it"
         });
     }
 
@@ -141,6 +142,7 @@ public class TeachersController : Controller
                 if (model.IsAdmin)
                 {
                     await userManager.AddToRoleAsync(teacherInDb, "Admin");
+                    await userManager.AddToRoleAsync(teacherInDb, "Reviewer");
                 }
                 else
                 {
@@ -158,6 +160,12 @@ public class TeachersController : Controller
 
                 _context.Update(teacherInDb);
                 await _context.SaveChangesAsync();
+
+                if (!string.IsNullOrWhiteSpace(model.Password)) 
+                {
+                    var token = await userManager.GeneratePasswordResetTokenAsync(teacherInDb);
+                    await userManager.ResetPasswordAsync(teacherInDb, token, model.Password);
+                }
             }
             catch (DbUpdateConcurrencyException)
             {

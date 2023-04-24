@@ -15,6 +15,10 @@ public class EditTeacherViewModel
     [Display(Name = "教师等级")]
     public int LevelId { get; set; }
 
+    [DataType(DataType.Password)]
+    [Display(Name = "重置密码（不填不会修改密码）")]
+    public string Password { get; set; }
+
     public string Id { get; set; }
     [Display(Name = "具有管理员权限（能够修改数据库和审批课程）")]
     public bool IsAdmin { get; set; }
