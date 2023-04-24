@@ -149,7 +149,7 @@ public class TeachersController : Controller
                     await userManager.RemoveFromRoleAsync(teacherInDb, "Admin");
                 }
 
-                if (model.IsReviewer)
+                if (model.IsReviewer || model.IsAdmin)
                 {
                     await userManager.AddToRoleAsync(teacherInDb, "Reviewer");
                 }
