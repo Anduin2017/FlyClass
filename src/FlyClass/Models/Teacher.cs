@@ -58,10 +58,10 @@ public class TeachEvent
     public ClassType ClassType { get; set; }
 
     [Display(Name = "已经审批通过")]
-    public bool IsApproved { get; set; } = false;
+    public bool IsApproved { get; set; }
 
     [Display(Name = "课时费")]
-    public int MoneyPaid { get; set; } = 0;
+    public int MoneyPaid { get; set; }
 }
 
 public class Site
