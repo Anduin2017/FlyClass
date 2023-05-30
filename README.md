@@ -1,15 +1,13 @@
 # 飞行课程上课登记系统
 
-这个系统是给徐总做的，用来记录飞行课程上课的情况。
-
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://gitlab.aiursoft.cn/aiursoft/infrastructures/-/blob/master/LICENSE)
 [![Pipeline stat](https://gitlab.aiursoft.cn/anduin/flyclass/badges/master/pipeline.svg)](https://gitlab.aiursoft.cn/anduin/flyclass/-/pipelines)
 [![Test Coverage](https://gitlab.aiursoft.cn/anduin/flyclass/badges/master/coverage.svg)](https://gitlab.aiursoft.cn/anduin/flyclass/-/pipelines)
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fflyclass.aiursoftcn%2F)](https://flyclass.aiursoft.cn)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fflyclass.aiursoft.cn)](https://flyclass.aiursoft.cn)
 
 ## Try
 
-Try a running flyclass [here](https://flyclass.aiursoft.com).
+Try a running FlyClass [here](https://flyclass.aiursoft.com).
 
 ## Run in Ubuntu
 
