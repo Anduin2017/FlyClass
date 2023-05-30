@@ -2,41 +2,42 @@
 
 这个系统是给徐总做的，用来记录飞行课程上课的情况。
 
-## 老师等级系统
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://gitlab.aiursoft.cn/aiursoft/infrastructures/-/blob/master/LICENSE)
+[![Pipeline stat](https://gitlab.aiursoft.cn/anduin/flyclass/badges/master/pipeline.svg)](https://gitlab.aiursoft.cn/anduin/flyclass/-/pipelines)
+[![Test Coverage](https://gitlab.aiursoft.cn/anduin/flyclass/badges/master/coverage.svg)](https://gitlab.aiursoft.cn/anduin/flyclass/-/pipelines)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fflyclass.aiursoftcn%2F)](https://flyclass.aiursoft.cn)
 
-每个教师都有一个属性，叫等级。
+## Try
 
-等级有：
+Try a running flyclass [here](https://flyclass.aiursoft.com).
 
-* 实习老师
-* 初级老师
-* 中级老师
-* 高级老师
+## Run in Ubuntu
 
-* 教师先认证进入系统。
-* 进入以后就可以开始登记了！
-  * 登记的时候包含登记日期
-  * 登记日期可以硬着头皮选前两天，但是这样登记上去的叫迟补登记。
-  * 选择校区（昆山、相城）
-  * 课程统计（45分钟、60分钟、90分钟、助教）
-  * 节数（1节、2节、3节……）
-  * 完事儿了就可以提交了
-* 提交上去以后，就会有一个审批流程。
-  * 每个校区都有一个指定的审批人
+First, specify a domain name for your Ubuntu 18.04+, brand-new server.
 
-* 可以查看到自己的上课历史，以及是否通过了审核。
+And execute the following command in the server:
 
-## 课程登记审批
+```bash
+curl -sL https://gitlab.aiursoft.cn/anduin/flyclass/-/raw/master/install.sh | sudo bash -s http://0.0.0.0:5000
+```
 
-审批人登录以后，可以将待审批的课程状态改变为已通过的状态。
+## Run locally
 
-审批人登录以后，如果发现有待审批的课程，就会有一个提醒。
+Requirements about how to run
 
-## 老师后台管理系统
+1. [.NET 6 SDK](http://dot.net/)
+2. Execute `dotnet run` to run the app
+3. Use your browser to view [http://localhost:5000](http://localhost:5000)
 
-1. 维护老师的资料（包括等级）
-2. 全局查看所有老师的上课记录。
-3. 查询功能
-   1. 今天一共花了多少课时费，都花给谁了
-   2. 这个月一共花了多少课时费，都花给谁了
-   3. 从开始到最近一天，整个校区一共花了多少钱，都花给谁了
+## Run in Microsoft Visual Studio
+
+1. Open the `.sln` file in the project path.
+2. Press `F5`.
+
+## How to contribute
+
+There are many ways to contribute to the project: logging bugs, submitting pull requests, reporting issues, and creating suggestions.
+
+Even if you with push rights on the repository, you should create a personal fork and create feature branches there when you need them. This keeps the main repository clean and your workflow cruft out of sight.
+
+We're also interested in your feedback on the future of this project. You can submit a suggestion or feature request through the issue tracker. To make this process more effective, we're asking that these include more information to help define them more clearly.
