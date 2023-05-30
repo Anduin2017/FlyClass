@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EFCoreSecondLevelCacheInterceptor" Version="3.7.3" />
+		<PackageReference Include="Aiursoft.SDK" Version="6.0.19" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.16" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.16" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.16" />
