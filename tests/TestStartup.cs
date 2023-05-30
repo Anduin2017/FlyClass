@@ -1,7 +1,6 @@
-﻿using FlyClass;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
-namespace Tracer.Tests;
+namespace FlyClass.Tests;
 
 public class TestStartup : Startup
 {

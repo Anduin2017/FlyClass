@@ -134,11 +134,6 @@ public class AccountController : Controller
         }
     }
 
-    private Task<Teacher> GetCurrentUserAsync()
-    {
-        return _userManager.GetUserAsync(HttpContext.User);
-    }
-
     private IActionResult RedirectToLocal(string returnUrl)
     {
         if (Url.IsLocalUrl(returnUrl))

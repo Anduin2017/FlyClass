@@ -1,11 +1,8 @@
 ﻿using Aiursoft.SDK;
-using FlyClass;
 using FlyClass.Data;
 using FlyClass.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using NuGet.ContentModel;
 using static Aiursoft.WebTools.Extends;
 
 namespace FlyClass;
@@ -141,7 +138,7 @@ public static class ProgramExtends
                 Email = "admin@default.com",
                 LevelId = defaultLevel.Id,
             };
-            var result = await userManager.CreateAsync(user, "admin123");
+            _ = await userManager.CreateAsync(user, "admin123");
             await userManager.AddToRoleAsync(user, "Admin");
         }
         return host;

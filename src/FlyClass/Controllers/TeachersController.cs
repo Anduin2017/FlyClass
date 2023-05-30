@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FlyClass.Data;
@@ -10,27 +6,20 @@ using FlyClass.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using FlyClass.Models.TeachersViewModels;
-using System.Data;
 
 namespace FlyClass.Controllers;
 
 [Authorize(Roles = "Admin")]
 public class TeachersController : Controller
 {
-    private readonly RoleManager<IdentityRole> roleManager;
     private readonly UserManager<Teacher> userManager;
-    private readonly SignInManager<Teacher> signInManager;
     private readonly ApplicationDbContext _context;
 
     public TeachersController(
-        RoleManager<IdentityRole> roleManager,
         UserManager<Teacher> userManager,
-        SignInManager<Teacher> signInManager,
         ApplicationDbContext context)
     {
-        this.roleManager = roleManager;
         this.userManager = userManager;
-        this.signInManager = signInManager;
         _context = context;
     }
 
@@ -136,6 +125,11 @@ public class TeachersController : Controller
             try
             {
                 var teacherInDb = await _context.Teachers.FindAsync(id);
+                if (teacherInDb == null)
+                {
+                    return NotFound();
+                }
+                
                 teacherInDb.ChineseName = model.ChineseName;
                 teacherInDb.LevelId = model.LevelId;
                 teacherInDb.Email = model.Email;

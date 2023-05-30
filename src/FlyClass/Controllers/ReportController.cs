@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using FlyClass.Data;
-using FlyClass.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using FlyClass.Models.SubmitViewModels;
-using System.Security.Claims;
 using FlyClass.Models.ReportViewModels;
 
 namespace FlyClass.Controllers;

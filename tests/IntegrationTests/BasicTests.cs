@@ -1,23 +1,15 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Aiursoft.XelNaga.Tools;
-using AngleSharp.Html.Dom;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Tracer.Tests.Tools;
 using static Aiursoft.WebTools.Extends;
 
-namespace Tracer.Tests.IntegrationTests;
+namespace FlyClass.Tests.IntegrationTests;
 
 [TestClass]
 public class BasicTests
 {
-    private static int _messageCount;
     private readonly string _endpointUrl;
     private readonly int _port;
     private readonly HttpClient _http;
@@ -52,8 +44,6 @@ public class BasicTests
     public async Task GetHome(string url)
     {
         var response = await _http.GetAsync(_endpointUrl + url);
-        var doc = await HtmlHelpers.GetDocumentAsync(response);
-
         response.EnsureSuccessStatusCode(); // Status Code 200-299
     }
 }

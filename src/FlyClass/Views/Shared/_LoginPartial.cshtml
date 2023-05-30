@@ -1,7 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using FlyClass.Models
-
-@inject SignInManager<Teacher> SignInManager
+﻿@inject SignInManager<Teacher> SignInManager
 @inject UserManager<Teacher> UserManager
 
 @if (SignInManager.IsSignedIn(User))
