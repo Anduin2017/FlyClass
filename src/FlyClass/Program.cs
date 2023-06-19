@@ -11,16 +11,10 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        await (await App<Startup>(args)
-            .Update<ApplicationDbContext>()
-            .SeedAsync())
-            .RunAsync();
-    }
-
-    // For EF
-    public static IHostBuilder CreateHostBuilder(string[] args)
-    {
-        return BareApp<Startup>(args);
+        var app = App<Startup>(args);
+        await app.UpdateDbAsync<ApplicationDbContext>();
+        await app.SeedAsync();
+        await app.RunAsync();
     }
 }
 
