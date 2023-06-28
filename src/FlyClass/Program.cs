@@ -1,4 +1,4 @@
-﻿using Aiursoft.SDK;
+﻿using Aiursoft.DbTools;
 using FlyClass.Data;
 using FlyClass.Models;
 using Microsoft.AspNetCore.Identity;
@@ -17,8 +17,6 @@ public class Program
         await app.RunAsync();
     }
 }
-
-
 
 public static class ProgramExtends
 {

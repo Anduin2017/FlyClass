@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using FlyClass.Data;
 using FlyClass.Models;
 using Microsoft.AspNetCore.HttpOverrides;
-using EFCoreSecondLevelCacheInterceptor;
 
 namespace FlyClass;
-
 
 public class Startup
 {
@@ -26,14 +24,7 @@ public class Startup
             optionsBuilder
                 .UseSqlite(
                     connectionString: connectionString,
-                    sqliteOptionsAction: options => options.CommandTimeout(30))
-                .AddInterceptors(serviceProvider.GetRequiredService<SecondLevelCacheInterceptor>()));
-
-        services.AddEFSecondLevelCache(options =>
-        {
-            options.UseMemoryCacheProvider().DisableLogging(true);
-            options.CacheAllQueries(CacheExpirationMode.Sliding, TimeSpan.FromMinutes(30));
-        });
+                    sqliteOptionsAction: options => options.CommandTimeout(30)));
 
         services.AddIdentity<Teacher, IdentityRole>(options => options.Password = new PasswordOptions
         {
