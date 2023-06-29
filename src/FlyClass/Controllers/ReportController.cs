@@ -18,14 +18,8 @@ public class ReportController : Controller
 
     public async Task<IActionResult> Index([FromQuery]DateTime? start = null, [FromQuery]DateTime? end = null)
     {
-        if (start == null)
-        {
-            start = DateTime.MinValue;
-        }
-        if (end == null)
-        {
-            end = DateTime.MaxValue;
-        }
+        start ??= DateTime.MinValue;
+        end ??= DateTime.MaxValue;
 
         var allEvents = await _context.TeachEvents
             .Include(t => t.Teacher)
