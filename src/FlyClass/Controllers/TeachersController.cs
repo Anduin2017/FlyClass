@@ -58,7 +58,7 @@ public class TeachersController : Controller
     {
         if (ModelState.IsValid)
         {
-            var defaultLevel = await this._context.Levels.FirstAsync();
+            var defaultLevel = await _context.Levels.FirstAsync();
             var user = new Teacher
             {
                 ChineseName = newTeacher.ChineseName,

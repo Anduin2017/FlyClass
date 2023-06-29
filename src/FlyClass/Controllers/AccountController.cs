@@ -52,12 +52,12 @@ public class AccountController : Controller
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                _logger.LogInformation(1, "User logged in.");
+                _logger.LogInformation(1, "User logged in");
                 return RedirectToLocal(returnUrl);
             }
             if (result.IsLockedOut)
             {
-                _logger.LogWarning(2, "User account locked out.");
+                _logger.LogWarning(2, "User account locked out");
                 return View("Lockout");
             }
             else
@@ -91,7 +91,7 @@ public class AccountController : Controller
         ViewData["ReturnUrl"] = returnUrl;
         if (ModelState.IsValid)
         {
-            var defaultLevel = await this._context.Levels.FirstAsync();
+            var defaultLevel = await _context.Levels.FirstAsync();
             var user = new Teacher 
             { 
                 ChineseName = model.Name, 
@@ -103,7 +103,7 @@ public class AccountController : Controller
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                _logger.LogInformation(3, "User created a new account with password.");
+                _logger.LogInformation(3, "User created a new account with password");
                 return RedirectToLocal(returnUrl);
             }
             AddErrors(result);
@@ -120,7 +120,7 @@ public class AccountController : Controller
     public async Task<IActionResult> LogOff()
     {
         await _signInManager.SignOutAsync();
-        _logger.LogInformation(4, "User logged out.");
+        _logger.LogInformation(4, "User logged out");
         return RedirectToAction(nameof(HomeController.Index), "Home");
     }
 

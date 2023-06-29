@@ -16,7 +16,7 @@ public class SubmitController : Controller
 
     public SubmitController(ApplicationDbContext dbContext)
     {
-        this._context = dbContext;
+        _context = dbContext;
     }
 
     public async Task<IActionResult> Index()

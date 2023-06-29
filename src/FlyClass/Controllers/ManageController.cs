@@ -77,7 +77,7 @@ public class ManageController : Controller
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                _logger.LogInformation(3, "User changed their password successfully.");
+                _logger.LogInformation(3, "User changed their password successfully");
                 return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
             }
             AddErrors(result);

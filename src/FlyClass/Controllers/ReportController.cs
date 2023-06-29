@@ -13,7 +13,7 @@ public class ReportController : Controller
 
     public ReportController(ApplicationDbContext dbContext)
     {
-        this._context = dbContext;
+        _context = dbContext;
     }
 
     public async Task<IActionResult> Index([FromQuery]DateTime? start = null, [FromQuery]DateTime? end = null)

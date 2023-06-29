@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Aiursoft.DbTools;
+using Microsoft.AspNetCore.Identity;
 using FlyClass.Data;
 using FlyClass.Models;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -20,11 +20,7 @@ public class Startup
         var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
         services.AddMemoryCache();
-        services.AddDbContextPool<ApplicationDbContext>((serviceProvider, optionsBuilder) =>
-            optionsBuilder
-                .UseSqlite(
-                    connectionString: connectionString,
-                    sqliteOptionsAction: options => options.CommandTimeout(30)));
+        services.AddAiurSqliteWithCache<ApplicationDbContext>(connectionString);
 
         services.AddIdentity<Teacher, IdentityRole>(options => options.Password = new PasswordOptions
         {
