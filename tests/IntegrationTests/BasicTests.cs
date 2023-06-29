@@ -1,6 +1,8 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Aiursoft.CSTools.Tools;
+using Aiursoft.DbTools;
+using FlyClass.Data;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Aiursoft.WebTools.Extends;
@@ -26,6 +28,8 @@ public class BasicTests
     public async Task CreateServer()
     {
         _server = App<TestStartup>(port: _port);
+        await _server.UpdateDbAsync<ApplicationDbContext>(UpdateMode.RecreateThenUse);
+        await _server.SeedAsync();
         await _server.StartAsync();
     }
 

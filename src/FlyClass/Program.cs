@@ -12,7 +12,7 @@ public class Program
     public static async Task Main(string[] args)
     {
         var app = App<Startup>(args);
-        await app.UpdateDbAsync<ApplicationDbContext>();
+        await app.UpdateDbAsync<ApplicationDbContext>(UpdateMode.MigrateThenUse);
         await app.SeedAsync();
         await app.RunAsync();
     }
