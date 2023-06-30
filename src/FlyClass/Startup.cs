@@ -1,4 +1,4 @@
-﻿using Aiursoft.DbTools;
+﻿using Aiursoft.DbTools.Sqlite;
 using Microsoft.AspNetCore.Identity;
 using FlyClass.Data;
 using FlyClass.Models;
