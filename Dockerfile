@@ -9,4 +9,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build-env /build .
 EXPOSE 80
-ENTRYPOINT ["dotnet","./FlyClass.dll"]
+ENTRYPOINT ["dotnet","/app/FlyClass.dll"]
