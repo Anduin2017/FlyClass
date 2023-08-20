@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace FlyClass.Tests;
+namespace Anduin.FlyClass.Tests;
 
 public class TestStartup : Startup
 {

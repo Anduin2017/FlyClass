@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyClass", "src\FlyClass\FlyClass.csproj", "{BA680C03-167A-4E05-B015-6B7D9730A053}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anduin.FlyClass", "src\Anduin.FlyClass\Anduin.FlyClass.csproj", "{BA680C03-167A-4E05-B015-6B7D9730A053}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D06A8D96-DB83-4EDE-9017-F7F4F7287246}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8AC42921-6DC7-43E5-BC18-FB4479CF14D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlyClass.Tests", "tests\FlyClass.Tests.csproj", "{1B2DBC53-DD5F-4C64-A28A-ABFB1D1C9D64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anduin.FlyClass.Tests", "tests\Anduin.FlyClass.Tests.csproj", "{1B2DBC53-DD5F-4C64-A28A-ABFB1D1C9D64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,0 +1,101 @@
+﻿@using Anduin.FlyClass.Models.ReportViewModels;
+@model ReportViewModel
+
+@{
+    ViewData["Title"] = "报告统计";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="get" asp-controller="Report" asp-action="Index">
+   <div class="form-group">
+        <label asp-for="Start" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Start" class="form-control" type="date" />
+            <span asp-validation-for="Start" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="End" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="End" class="form-control" type="date" />
+            <span asp-validation-for="End" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-secondary mt-3">筛选</button>
+        </div>
+    </div>
+</form>
+
+<hr />
+
+<h2 class="mt-3">课时费(按教师）</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                姓名
+            </th>
+            <th>
+                上课次数
+            </th>
+            <th>
+                累计课时费
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PaidByPerson)
+        {
+            var teacher = item.First().Teacher;
+            <tr>
+                <td>
+                    @teacher.ChineseName
+                </td>
+                <td>
+                    @item.Sum(i => i.Times)
+                </td>
+                <td>
+                    @item.Sum(i => i.MoneyPaid)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2 class="mt-3">课时费(按校区)</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                校区
+            </th>
+            <th>
+                上课次数
+            </th>
+            <th>
+                累计课时费
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PaidBySite)
+        {
+            var site = item.First().Site;
+            <tr>
+                <td>
+                    @site.SiteName
+                </td>
+                <td>
+                    @item.Sum(i => i.Times)
+                </td>
+                <td>
+                    @item.Sum(i => i.MoneyPaid)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

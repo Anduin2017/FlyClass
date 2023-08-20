@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Anduin.FlyClass.Models.Teacher>
+@inject UserManager<Teacher> userManager
+@{
+    ViewData["Title"] = "教师管理";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">添加教师</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ChineseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Level)
+            </th>
+            <th>
+                是管理员
+            </th>
+            <th>
+                是审批员
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChineseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Level.Name)
+                </td>
+                <td>
+                    @{
+                        var isAdmin = await userManager.IsInRoleAsync(item, "Admin");
+                    }
+                    @(isAdmin ? "是" : string.Empty)
+                </td>
+                <td>
+                    @{
+                        var isReviewer = await userManager.IsInRoleAsync(item, "Reviewer");
+                    }
+                    @(isReviewer ? "是" : string.Empty)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">编辑</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">详情</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">删除</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

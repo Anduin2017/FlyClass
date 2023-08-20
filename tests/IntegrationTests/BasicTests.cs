@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using Aiursoft.CSTools.Tools;
 using Aiursoft.DbTools;
-using FlyClass.Data;
+using Anduin.FlyClass.Data;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Aiursoft.WebTools.Extends;
 
-namespace FlyClass.Tests.IntegrationTests;
+namespace Anduin.FlyClass.Tests.IntegrationTests;
 
 [TestClass]
 public class BasicTests
