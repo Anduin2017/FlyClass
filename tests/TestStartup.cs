@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace Anduin.FlyClass.Tests;
+﻿namespace Anduin.FlyClass.Tests;
 
 public class TestStartup : Startup
 {
