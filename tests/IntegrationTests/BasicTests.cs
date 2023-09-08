@@ -24,7 +24,7 @@ public class BasicTests
     [TestInitialize]
     public async Task CreateServer()
     {
-        _server = App<TestStartup>(port: _port);
+        _server = App<Startup>(Array.Empty<string>(), port: _port);
         await _server.UpdateDbAsync<ApplicationDbContext>(UpdateMode.RecreateThenUse);
         await _server.SeedAsync();
         await _server.StartAsync();

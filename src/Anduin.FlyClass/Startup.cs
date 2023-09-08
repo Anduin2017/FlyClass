@@ -1,4 +1,5 @@
 ﻿using Aiursoft.DbTools.Sqlite;
+using Aiursoft.WebTools.Models;
 using Anduin.FlyClass.Data;
 using Anduin.FlyClass.Models;
 using Microsoft.AspNetCore.Identity;
@@ -6,18 +7,11 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Anduin.FlyClass;
 
-public class Startup
+public class Startup : IWebStartup
 {
-    public Startup(IConfiguration configuration)
+    public void ConfigureServices(IConfiguration configuration, IWebHostEnvironment environment, IServiceCollection services)
     {
-        Configuration = configuration;
-    }
-
-    private IConfiguration Configuration { get; }
-
-    public void ConfigureServices(IServiceCollection services)
-    {
-        var connectionString = Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+        var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
         services.AddMemoryCache();
         services.AddAiurSqliteWithCache<ApplicationDbContext>(connectionString);
@@ -35,7 +29,7 @@ public class Startup
         .AddDefaultTokenProviders();
 
         services.AddDatabaseDeveloperPageExceptionFilter();
-        services.AddControllersWithViews();
+        services.AddControllersWithViews().AddApplicationPart(typeof(Startup).Assembly);
         services.Configure<ForwardedHeadersOptions>(options =>
         {
             options.ForwardedHeaders =
