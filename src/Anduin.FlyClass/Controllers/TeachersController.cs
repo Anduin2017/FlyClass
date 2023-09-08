@@ -206,11 +206,13 @@ public class TeachersController : Controller
             return Problem("Entity set 'ApplicationDbContext.Teachers'  is null.");
         }
         var teacher = await _context.Teachers.FindAsync(id);
-        await userManager.RemoveFromRoleAsync(teacher, "Admin");
-        if (teacher != null)
+        if (teacher == null)
         {
-            _context.Teachers.Remove(teacher);
+            return Problem("Entity set 'ApplicationDbContext.Teachers'  is null.");
         }
+        
+        await userManager.RemoveFromRoleAsync(teacher, "Admin");
+        _context.Teachers.Remove(teacher);
         
         await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
