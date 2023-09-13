@@ -37,7 +37,7 @@ public class Startup : IWebStartup
         });
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(WebApplication app)
     {
         app.UseExceptionHandler("/Home/Error");
         app.UseForwardedHeaders();
@@ -45,6 +45,6 @@ public class Startup : IWebStartup
         app.UseRouting();
         app.UseAuthentication();
         app.UseAuthorization();
-        app.UseEndpoints(endpoints => endpoints.MapDefaultControllerRoute());
+        app.MapDefaultControllerRoute();
     }
 }
