@@ -28,6 +28,18 @@ public class TeachEventsController : Controller
         return View(await applicationDbContext.ToListAsync());
     }
 
+    public async Task<IActionResult> Csv()
+    {
+        var applicationDbContext = await _context.TeachEvents
+            .Include(t => t.ClassType)
+            .Include(t => t.Site)
+            .Include(t => t.Teacher)
+            .OrderByDescending(t => t.EventTime)
+            .ToListAsync();
+        var csv = Aiursoft.CSTools.Tools.CsvExtends.ToCsv(applicationDbContext);
+        return File(csv, "text/csv", "TeachEvents.csv");
+    }
+
     // GET: TeachEvents/Details/5
     public async Task<IActionResult> Details(int? id)
     {
