@@ -62,6 +62,21 @@ public class TeachEvent
 
     [Display(Name = "课时费")]
     public int MoneyPaid { get; set; }
+
+    public TeachEventDto ToDto()
+    {
+        return new TeachEventDto
+        {
+            EventTime = EventTime,
+            Times = Times,
+            Comments = Comments,
+            TeacherName = Teacher.ChineseName,
+            SiteName = Site.SiteName,
+            ClassTypeName = ClassType.Name,
+            IsApproved = IsApproved,
+            MoneyPaid = MoneyPaid
+        };
+    }
 }
 
 public class Site

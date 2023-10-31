@@ -1,4 +1,5 @@
-﻿using Anduin.FlyClass.Data;
+﻿using Aiursoft.CSTools.Tools;
+using Anduin.FlyClass.Data;
 using Anduin.FlyClass.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -36,7 +37,7 @@ public class TeachEventsController : Controller
             .Include(t => t.Teacher)
             .OrderByDescending(t => t.EventTime)
             .ToListAsync();
-        var csv = Aiursoft.CSTools.Tools.CsvExtends.ToCsv(applicationDbContext);
+        var csv = applicationDbContext.Select(t => t.ToDto()).ToList().ToCsv();
         return File(csv, "text/csv", "TeachEvents.csv");
     }
 
