@@ -1,6 +1,6 @@
 # 飞行课程上课登记系统
 
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://gitlab.aiursoft.cn/aiursoft/infrastructures/-/blob/master/LICENSE)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://gitlab.aiursoft.cn/anduin/flyclass/-/blob/master/LICENSE)
 [![Pipeline stat](https://gitlab.aiursoft.cn/anduin/flyclass/badges/master/pipeline.svg)](https://gitlab.aiursoft.cn/anduin/flyclass/-/pipelines)
 [![Test Coverage](https://gitlab.aiursoft.cn/anduin/flyclass/badges/master/coverage.svg)](https://gitlab.aiursoft.cn/anduin/flyclass/-/pipelines)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fflyclass.aiursoft.cn)](https://flyclass.aiursoft.cn)
