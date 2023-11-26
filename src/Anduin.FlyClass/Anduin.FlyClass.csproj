@@ -9,8 +9,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Aiursoft.WebTools" Version="7.0.9" />
-    <PackageReference Include="Aiursoft.DbTools.Sqlite" Version="7.0.10" />
+    <PackageReference Include="Aiursoft.WebTools" Version="7.0.10" />
+    <PackageReference Include="Aiursoft.DbTools.Sqlite" Version="7.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.14" />
