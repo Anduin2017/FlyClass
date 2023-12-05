@@ -24,7 +24,7 @@ curl -sL https://gitlab.aiursoft.cn/anduin/flyclass/-/raw/master/install.sh | su
 
 Requirements about how to run
 
-1. [.NET 6 SDK](http://dot.net/)
+1. [.NET 7 SDK](http://dot.net/)
 2. Execute `dotnet run` to run the app
 3. Use your browser to view [http://localhost:5000](http://localhost:5000)
 
