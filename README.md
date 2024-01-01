@@ -17,7 +17,7 @@ First, specify a domain name for your Ubuntu 18.04+, brand-new server.
 And execute the following command in the server:
 
 ```bash
-curl -sL https://gitlab.aiursoft.cn/anduin/flyclass/-/raw/master/install.sh | sudo bash -s http://0.0.0.0:5000
+curl -sL https://gitlab.aiursoft.cn/anduin/flyclass/-/raw/master/install.sh | sudo bash
 ```
 
 ## Run locally
