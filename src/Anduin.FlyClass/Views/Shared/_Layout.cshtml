@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>@ViewData["Title"] - Anduin.FlyClass</title>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    <title>@ViewData["Title"] - 飞行员课程登记管理系统</title>
     <link rel="stylesheet" href="~/node_modules/@@aiursoft/autodark.js/dist/css/autodark.min.css" />
 </head>
 
@@ -22,27 +23,27 @@
                 <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Submit" asp-action="Index">记录教学</a>
+                            <a class="nav-link" asp-controller="Submit" asp-action="Index">记录</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Submit" asp-action="Log">我的日志</a>
+                            <a class="nav-link" asp-controller="Submit" asp-action="Log">日志</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Levels" asp-action="Index">教师级别管理</a>
+                                <a class="nav-link" asp-controller="Levels" asp-action="Index">级别</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Teachers" asp-action="Index">教师用户管理</a>
+                                <a class="nav-link" asp-controller="Teachers" asp-action="Index">用户</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Sites" asp-action="Index">校区管理</a>
+                                <a class="nav-link" asp-controller="Sites" asp-action="Index">校区</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="ClassTypes" asp-action="Index">课程类型管理</a>
+                                <a class="nav-link" asp-controller="ClassTypes" asp-action="Index">课程</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="MoneyMaps" asp-action="Index">课时费设置</a>
+                                <a class="nav-link" asp-controller="MoneyMaps" asp-action="Index">课时费</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Report" asp-action="Index">统计</a>
@@ -51,7 +52,7 @@
                         @if (User.IsInRole("Admin") || User.IsInRole("Reviewer"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="TeachEvents" asp-action="Index">教学历史管理</a>
+                                <a class="nav-link" asp-controller="TeachEvents" asp-action="Index">历史</a>
                             </li>
                         }
                         <li class="nav-item">
@@ -82,13 +83,13 @@
 
     <script type="module" src="~/node_modules/jquery/dist/jquery.min.js" defer></script>
     <script type="module" src="~/node_modules/jquery-validation/dist/jquery.validate.min.js" defer></script>
-    <script type="module" src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"
-        defer></script>
+    <script type="module" src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" defer></script>
     <script type="module" src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
     <script type="module">
         import { autoTheme } from '/node_modules/@@aiursoft/autodark.js/dist/esm/autodark.js';
         autoTheme();
     </script>
+    @(await RenderSectionAsync("scripts", false))
 </body>
 
 </html>
