@@ -8,7 +8,7 @@
 
 ## Try
 
-Try a running FlyClass [here](https://flyclass.aiursoft.com).
+Try a running FlyClass [here](https://flyclass.aiursoft.cn).
 
 ## Run in Ubuntu
 
