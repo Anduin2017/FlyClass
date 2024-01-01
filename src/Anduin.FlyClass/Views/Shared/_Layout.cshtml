@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE HTML>
 <html lang="en" class="h-100">
 
 <head>
@@ -9,13 +9,14 @@
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
     <title>@ViewData["Title"] - 飞行员课程登记管理系统</title>
     <link rel="stylesheet" href="~/node_modules/@@aiursoft/autodark.js/dist/css/autodark.min.css" />
+    <link rel="stylesheet" href="~/node_modules/@@fortawesome/fontawesome-free/css/all.min.css" />
 </head>
 
 <body class="d-flex flex-column h-100">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">飞行员课程登记管理系统</a>
+<a class="navbar-brand" asp-controller="Home" asp-action="Index">飞行员课程登记管理系统</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
                     aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -61,6 +62,12 @@
                     </ul>
                     <div class="form-inline">
                         <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://gitlab.aiursoft.cn/aiursoft/tracer">
+                                    <i class="fab fa-gitlab"></i>
+                                    在 GitLab 上查看
+                                </a>
+                            </li>
                         </ul>
                         <partial name="_LoginPartial" />
                     </div>
@@ -76,19 +83,21 @@
 
     <footer class="footer mt-auto py-3">
         <div class="container">
-            &copy; @DateTime.UtcNow.Year - Anduin.FlyClass - <a asp-area="" asp-controller="Home"
-                asp-action="Privacy">关于</a>
+            &copy; @DateTime.UtcNow.Year - Anduin.FlyClass - <a
+                href="https://gitlab.aiursoft.cn/aiursoft/FlyClass">源代码</a>
         </div>
     </footer>
 
     <script type="module" src="~/node_modules/jquery/dist/jquery.min.js" defer></script>
     <script type="module" src="~/node_modules/jquery-validation/dist/jquery.validate.min.js" defer></script>
-    <script type="module" src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js" defer></script>
+    <script type="module" src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"
+        defer></script>
     <script type="module" src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
     <script type="module">
         import { autoTheme } from '/node_modules/@@aiursoft/autodark.js/dist/esm/autodark.js';
         autoTheme();
     </script>
+
     @(await RenderSectionAsync("scripts", false))
 </body>
 
