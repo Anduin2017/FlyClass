@@ -1,62 +1,68 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
+
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>@ViewData["Title"] - Anduin.FlyClass</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Anduin.FlyClass.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/node_modules/@@aiursoft/autodark.js/dist/css/autodark.min.css" />
 </head>
-<body>
+
+<body class="d-flex flex-column h-100">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Anduin.FlyClass管理系统</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">飞行员课程登记管理系统</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Submit" asp-action="Index">记录教学</a>
+                            <a class="nav-link" asp-controller="Submit" asp-action="Index">记录教学</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Submit" asp-action="Log">我的日志</a>
+                            <a class="nav-link" asp-controller="Submit" asp-action="Log">我的日志</a>
                         </li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Levels" asp-action="Index">教师级别管理</a>
+                                <a class="nav-link" asp-controller="Levels" asp-action="Index">教师级别管理</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Teachers" asp-action="Index">教师用户管理</a>
+                                <a class="nav-link" asp-controller="Teachers" asp-action="Index">教师用户管理</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Sites" asp-action="Index">校区管理</a>
+                                <a class="nav-link" asp-controller="Sites" asp-action="Index">校区管理</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="ClassTypes" asp-action="Index">课程类型管理</a>
+                                <a class="nav-link" asp-controller="ClassTypes" asp-action="Index">课程类型管理</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="MoneyMaps" asp-action="Index">课时费设置</a>
+                                <a class="nav-link" asp-controller="MoneyMaps" asp-action="Index">课时费设置</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Report" asp-action="Index">统计</a>
+                                <a class="nav-link" asp-controller="Report" asp-action="Index">统计</a>
                             </li>
                         }
                         @if (User.IsInRole("Admin") || User.IsInRole("Reviewer"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="TeachEvents" asp-action="Index">教学历史管理</a>
+                                <a class="nav-link" asp-controller="TeachEvents" asp-action="Index">教学历史管理</a>
                             </li>
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">关于</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">关于</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
+                    <div class="form-inline">
+                        <ul class="navbar-nav mr-auto">
+                        </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
             </div>
         </nav>
@@ -67,14 +73,22 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer mt-auto py-3">
         <div class="container">
-            &copy; 2023 - Anduin.FlyClass - <a asp-area="" asp-controller="Home" asp-action="Privacy">关于</a>
+            &copy; @DateTime.UtcNow.Year - Anduin.FlyClass - <a asp-area="" asp-controller="Home"
+                asp-action="Privacy">关于</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    <script type="module" src="~/node_modules/jquery/dist/jquery.min.js" defer></script>
+    <script type="module" src="~/node_modules/jquery-validation/dist/jquery.validate.min.js" defer></script>
+    <script type="module" src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"
+        defer></script>
+    <script type="module" src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script type="module">
+        import { autoTheme } from '/node_modules/@@aiursoft/autodark.js/dist/esm/autodark.js';
+        autoTheme();
+    </script>
 </body>
+
 </html>

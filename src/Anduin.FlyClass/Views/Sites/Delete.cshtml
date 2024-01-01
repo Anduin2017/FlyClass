@@ -8,7 +8,7 @@
 
 <h3 class="text-danger">确定要删除这一项吗?注意！删除一个校区，会删除掉整个校区所有的教学历史！这非常危险！</h3>
 <div>
-    <h4>Site</h4>
+    <h4>校区</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -22,6 +22,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="删除" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index">返回列表</a>
     </form>
 </div>
