@@ -119,7 +119,7 @@ upload_to_local_nuget:
   only:
     - master
 
-build_upload_to_docker:
+deploy_docker:
   stage: deploy
   environment: production
   needs:
@@ -127,7 +127,9 @@ build_upload_to_docker:
   dependencies:
     - publish
   script:
-    - docker build . -t hub.aiursoft.cn/anduin/flyclass:latest
-    - docker push hub.aiursoft.cn/anduin/flyclass:latest
-  only:
-    - master
+    - docker build . -t hub.aiursoft.cn/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:latest
+    - docker push hub.aiursoft.cn/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:latest
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      exists:
+      - Dockerfile
