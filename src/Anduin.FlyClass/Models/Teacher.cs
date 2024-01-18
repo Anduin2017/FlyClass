@@ -7,6 +7,7 @@ namespace Anduin.FlyClass.Models;
 public class Teacher : IdentityUser
 {
     [Display(Name = "中文姓名")]
+    [MaxLength(100)]
     public string ChineseName { get; set; }
 
     [Display(Name = "教师等级")]
@@ -23,6 +24,7 @@ public class Level
 {
     public int Id { get; set; }
     [Display(Name = "教师等级名称")]
+    [MaxLength(100)]
     public string Name { get; set; }
 
     [InverseProperty(nameof(Teacher.Level))]
@@ -37,9 +39,11 @@ public class TeachEvent
     [Display(Name = "上课次数")]
     public int Times { get; set; }
     [Display(Name = "备注")]
+    [MaxLength(100)]
     public string Comments { get; set; }
 
     [Display(Name = "任课教师")]
+    [MaxLength(100)]
     public string TeacherId { get; set; }
     [Display(Name = "任课教师")]
     [ForeignKey(nameof(TeacherId))]
@@ -83,6 +87,7 @@ public class Site
 {
     public int Id { get; set; }
     [Display(Name = "校区名称")]
+    [MaxLength(100)]
     public string SiteName { get; set; }
 
     [InverseProperty(nameof(TeachEvent.Site))]
@@ -93,6 +98,7 @@ public class ClassType
 {
     public int Id { get; set; }
     [Display(Name = "课程类型")]
+    [MaxLength(100)]
     public string Name { get; set; }
 
 

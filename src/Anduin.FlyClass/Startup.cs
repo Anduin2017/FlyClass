@@ -1,5 +1,5 @@
 ﻿using Aiursoft.DbTools.Sqlite;
-using Aiursoft.WebTools.Models;
+using Aiursoft.WebTools.Abstractions.Models;
 using Anduin.FlyClass.Data;
 using Anduin.FlyClass.Models;
 using Microsoft.AspNetCore.Identity;
