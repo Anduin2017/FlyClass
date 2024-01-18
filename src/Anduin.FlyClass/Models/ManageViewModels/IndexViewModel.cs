@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Anduin.FlyClass.Models;
+namespace Anduin.FlyClass.Models.ManageViewModels;
 
 public class IndexViewModel
 {

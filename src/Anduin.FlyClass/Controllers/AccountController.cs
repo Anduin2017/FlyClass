@@ -1,5 +1,6 @@
 ﻿using Anduin.FlyClass.Data;
 using Anduin.FlyClass.Models;
+using Anduin.FlyClass.Models.AccountViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

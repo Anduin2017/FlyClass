@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Anduin.FlyClass.Models;
+namespace Anduin.FlyClass.Models.AccountViewModels;
 
 public class RegisterViewModel
 {
