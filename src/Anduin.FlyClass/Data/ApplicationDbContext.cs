@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Anduin.FlyClass.Data;
 
-public class ApplicationDbContext : IdentityDbContext<Teacher>
+public class FlyClassDbContext : IdentityDbContext<Teacher>
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    public FlyClassDbContext(DbContextOptions<FlyClassDbContext> options)
         : base(options)
     {
     }

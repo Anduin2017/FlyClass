@@ -11,8 +11,8 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        var app = App<Startup>(args);
-        await app.UpdateDbAsync<ApplicationDbContext>(UpdateMode.MigrateThenUse);
+        var app = await AppAsync<Startup>(args);
+        await app.UpdateDbAsync<FlyClassDbContext>(UpdateMode.MigrateThenUse);
         await app.SeedAsync();
         await app.RunAsync();
     }
@@ -20,7 +20,7 @@ public class Program
 
 public static class ProgramExtends
 {
-    private static async Task AddPaymentOption(ApplicationDbContext db, string levelType, string classType, int payment)
+    private static async Task AddPaymentOption(FlyClassDbContext db, string levelType, string classType, int payment)
     {
         var classTypeId = await db.ClassTypes.Where(t => t.Name == classType).Select(t => t.Id).FirstAsync();
         var levelTypeId = await db.Levels.Where(t => t.Name == levelType).Select(t => t.Id).FirstAsync();
@@ -37,7 +37,7 @@ public static class ProgramExtends
     {
         using var scope = host.Services.CreateScope();
         var services = scope.ServiceProvider;
-        var db = services.GetRequiredService<ApplicationDbContext>();
+        var db = services.GetRequiredService<FlyClassDbContext>();
         var userManager = services.GetRequiredService<UserManager<Teacher>>();
         var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
         if (!await db.Levels.AnyAsync())

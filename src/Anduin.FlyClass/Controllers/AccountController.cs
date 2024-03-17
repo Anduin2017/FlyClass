@@ -11,13 +11,13 @@ namespace Anduin.FlyClass.Controllers;
 [Authorize]
 public class AccountController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly FlyClassDbContext _context;
     private readonly UserManager<Teacher> _userManager;
     private readonly SignInManager<Teacher> _signInManager;
     private readonly ILogger _logger;
 
     public AccountController(
-        ApplicationDbContext context,
+        FlyClassDbContext context,
         UserManager<Teacher> userManager,
         SignInManager<Teacher> signInManager,
         ILoggerFactory loggerFactory)

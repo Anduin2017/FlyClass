@@ -11,9 +11,9 @@ namespace Anduin.FlyClass.Controllers;
 [Authorize(Roles = "Admin,Reviewer")]
 public class TeachEventsController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly FlyClassDbContext _context;
 
-    public TeachEventsController(ApplicationDbContext context)
+    public TeachEventsController(FlyClassDbContext context)
     {
         _context = context;
     }

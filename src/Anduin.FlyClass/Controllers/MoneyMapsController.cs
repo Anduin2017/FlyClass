@@ -10,9 +10,9 @@ namespace Anduin.FlyClass.Controllers;
 [Authorize(Roles = "Admin")]
 public class MoneyMapsController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly FlyClassDbContext _context;
 
-    public MoneyMapsController(ApplicationDbContext context)
+    public MoneyMapsController(FlyClassDbContext context)
     {
         _context = context;
     }

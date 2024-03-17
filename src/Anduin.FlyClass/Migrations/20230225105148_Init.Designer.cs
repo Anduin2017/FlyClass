@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Anduin.FlyClass.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(FlyClassDbContext))]
     [Migration("20230225105148_Init")]
     partial class Init
     {

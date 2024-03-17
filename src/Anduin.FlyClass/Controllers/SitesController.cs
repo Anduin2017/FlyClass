@@ -9,9 +9,9 @@ namespace Anduin.FlyClass.Controllers;
 [Authorize(Roles = "Admin")]
 public class SitesController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly FlyClassDbContext _context;
 
-    public SitesController(ApplicationDbContext context)
+    public SitesController(FlyClassDbContext context)
     {
         _context = context;
     }

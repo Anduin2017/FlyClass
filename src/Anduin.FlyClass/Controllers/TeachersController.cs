@@ -13,11 +13,11 @@ namespace Anduin.FlyClass.Controllers;
 public class TeachersController : Controller
 {
     private readonly UserManager<Teacher> userManager;
-    private readonly ApplicationDbContext _context;
+    private readonly FlyClassDbContext _context;
 
     public TeachersController(
         UserManager<Teacher> userManager,
-        ApplicationDbContext context)
+        FlyClassDbContext context)
     {
         this.userManager = userManager;
         _context = context;

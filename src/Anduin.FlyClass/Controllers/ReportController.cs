@@ -9,9 +9,9 @@ namespace Anduin.FlyClass.Controllers;
 [Authorize(Roles = "Admin")]
 public class ReportController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly FlyClassDbContext _context;
 
-    public ReportController(ApplicationDbContext dbContext)
+    public ReportController(FlyClassDbContext dbContext)
     {
         _context = dbContext;
     }

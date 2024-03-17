@@ -9,9 +9,9 @@ namespace Anduin.FlyClass.Controllers;
 [Authorize(Roles = "Admin")]
 public class LevelsController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly FlyClassDbContext _context;
 
-    public LevelsController(ApplicationDbContext context)
+    public LevelsController(FlyClassDbContext context)
     {
         _context = context;
     }

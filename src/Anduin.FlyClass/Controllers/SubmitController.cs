@@ -12,9 +12,9 @@ namespace Anduin.FlyClass.Controllers;
 [Authorize]
 public class SubmitController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly FlyClassDbContext _context;
 
-    public SubmitController(ApplicationDbContext dbContext)
+    public SubmitController(FlyClassDbContext dbContext)
     {
         _context = dbContext;
     }
