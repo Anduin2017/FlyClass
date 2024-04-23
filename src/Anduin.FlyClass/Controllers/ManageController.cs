@@ -7,21 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace Anduin.FlyClass.Controllers;
 
 [Authorize]
-public class ManageController : Controller
-{
-    private readonly UserManager<Teacher> _userManager;
-    private readonly SignInManager<Teacher> _signInManager;
-    private readonly ILogger _logger;
-
-    public ManageController(
+public class ManageController(
     UserManager<Teacher> userManager,
     SignInManager<Teacher> signInManager,
     ILoggerFactory loggerFactory)
-    {
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _logger = loggerFactory.CreateLogger<ManageController>();
-    }
+    : Controller
+{
+    private readonly ILogger _logger = loggerFactory.CreateLogger<ManageController>();
 
     //
     // GET: /Manage/Index
@@ -44,11 +36,11 @@ public class ManageController : Controller
         }
         var model = new IndexViewModel
         {
-            HasPassword = await _userManager.HasPasswordAsync(user),
-            PhoneNumber = await _userManager.GetPhoneNumberAsync(user),
-            TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
-            Logins = await _userManager.GetLoginsAsync(user),
-            BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)
+            HasPassword = await userManager.HasPasswordAsync(user),
+            PhoneNumber = await userManager.GetPhoneNumberAsync(user),
+            TwoFactor = await userManager.GetTwoFactorEnabledAsync(user),
+            Logins = await userManager.GetLoginsAsync(user),
+            BrowserRemembered = await signInManager.IsTwoFactorClientRememberedAsync(user)
         };
         return View(model);
     }
@@ -74,10 +66,10 @@ public class ManageController : Controller
         var user = await GetCurrentUserAsync();
         if (user != null)
         {
-            var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+            var result = await userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                await signInManager.SignInAsync(user, isPersistent: false);
                 _logger.LogInformation(3, "User changed their password successfully");
                 return RedirectToAction(nameof(Index), new { Message = ManageMessageId.ChangePasswordSuccess });
             }
@@ -109,10 +101,10 @@ public class ManageController : Controller
         var user = await GetCurrentUserAsync();
         if (user != null)
         {
-            var result = await _userManager.AddPasswordAsync(user, model.NewPassword);
+            var result = await userManager.AddPasswordAsync(user, model.NewPassword);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                await signInManager.SignInAsync(user, isPersistent: false);
                 return RedirectToAction(nameof(Index), new { Message = ManageMessageId.SetPasswordSuccess });
             }
             AddErrors(result);
@@ -145,7 +137,7 @@ public class ManageController : Controller
 
     private Task<Teacher> GetCurrentUserAsync()
     {
-        return _userManager.GetUserAsync(HttpContext.User);
+        return userManager.GetUserAsync(HttpContext.User);
     }
 
     #endregion

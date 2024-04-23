@@ -9,19 +9,12 @@ using Microsoft.AspNetCore.Authorization;
 namespace Anduin.FlyClass.Controllers;
 
 [Authorize(Roles = "Admin,Reviewer")]
-public class TeachEventsController : Controller
+public class TeachEventsController(FlyClassDbContext context) : Controller
 {
-    private readonly FlyClassDbContext _context;
-
-    public TeachEventsController(FlyClassDbContext context)
-    {
-        _context = context;
-    }
-
     // GET: TeachEvents
     public async Task<IActionResult> Index()
     {
-        var applicationDbContext = _context.TeachEvents
+        var applicationDbContext = context.TeachEvents
             .Include(t => t.ClassType)
             .Include(t => t.Site)
             .Include(t => t.Teacher)
@@ -31,7 +24,7 @@ public class TeachEventsController : Controller
 
     public async Task<IActionResult> Csv()
     {
-        var applicationDbContext = await _context.TeachEvents
+        var applicationDbContext = await context.TeachEvents
             .Include(t => t.ClassType)
             .Include(t => t.Site)
             .Include(t => t.Teacher)
@@ -44,12 +37,12 @@ public class TeachEventsController : Controller
     // GET: TeachEvents/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || _context.TeachEvents == null)
+        if (id == null || context.TeachEvents == null)
         {
             return NotFound();
         }
 
-        var teachEvent = await _context.TeachEvents
+        var teachEvent = await context.TeachEvents
             .Include(t => t.ClassType)
             .Include(t => t.Site)
             .Include(t => t.Teacher)
@@ -65,9 +58,9 @@ public class TeachEventsController : Controller
     // GET: TeachEvents/Create
     public async Task<IActionResult> Create()
     {
-        ViewData["ClassTypeId"] = new SelectList(await _context.ClassTypes.ToListAsync(), "Id", nameof(ClassType.Name));
-        ViewData["SiteId"] = new SelectList(await _context.Sites.ToListAsync(), "Id", nameof(Site.SiteName));
-        ViewData["TeacherId"] = new SelectList(await _context.Teachers.ToListAsync(), "Id", nameof(Teacher.ChineseName));
+        ViewData["ClassTypeId"] = new SelectList(await context.ClassTypes.ToListAsync(), "Id", nameof(ClassType.Name));
+        ViewData["SiteId"] = new SelectList(await context.Sites.ToListAsync(), "Id", nameof(Site.SiteName));
+        ViewData["TeacherId"] = new SelectList(await context.Teachers.ToListAsync(), "Id", nameof(Teacher.ChineseName));
         return View(model: new TeachEvent
         {
             EventTime = DateTime.UtcNow
@@ -83,32 +76,32 @@ public class TeachEventsController : Controller
     {
         if (ModelState.IsValid)
         {
-            _context.Add(teachEvent);
-            await _context.SaveChangesAsync();
+            context.Add(teachEvent);
+            await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", nameof(ClassType.Name), teachEvent.ClassTypeId);
-        ViewData["SiteId"] = new SelectList(_context.Sites, "Id", nameof(Site.SiteName), teachEvent.SiteId);
-        ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", nameof(Teacher.ChineseName), teachEvent.TeacherId);
+        ViewData["ClassTypeId"] = new SelectList(context.ClassTypes, "Id", nameof(ClassType.Name), teachEvent.ClassTypeId);
+        ViewData["SiteId"] = new SelectList(context.Sites, "Id", nameof(Site.SiteName), teachEvent.SiteId);
+        ViewData["TeacherId"] = new SelectList(context.Teachers, "Id", nameof(Teacher.ChineseName), teachEvent.TeacherId);
         return View(teachEvent);
     }
 
     // GET: TeachEvents/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || _context.TeachEvents == null)
+        if (id == null || context.TeachEvents == null)
         {
             return NotFound();
         }
 
-        var teachEvent = await _context.TeachEvents.FindAsync(id);
+        var teachEvent = await context.TeachEvents.FindAsync(id);
         if (teachEvent == null)
         {
             return NotFound();
         }
-        ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", nameof(ClassType.Name), teachEvent.ClassTypeId);
-        ViewData["SiteId"] = new SelectList(_context.Sites, "Id", nameof(Site.SiteName), teachEvent.SiteId);
-        ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", nameof(Teacher.ChineseName), teachEvent.TeacherId);
+        ViewData["ClassTypeId"] = new SelectList(context.ClassTypes, "Id", nameof(ClassType.Name), teachEvent.ClassTypeId);
+        ViewData["SiteId"] = new SelectList(context.Sites, "Id", nameof(Site.SiteName), teachEvent.SiteId);
+        ViewData["TeacherId"] = new SelectList(context.Teachers, "Id", nameof(Teacher.ChineseName), teachEvent.TeacherId);
         return View(teachEvent);
     }
 
@@ -128,8 +121,8 @@ public class TeachEventsController : Controller
         {
             try
             {
-                _context.Update(teachEvent);
-                await _context.SaveChangesAsync();
+                context.Update(teachEvent);
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -144,21 +137,21 @@ public class TeachEventsController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
-        ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", nameof(ClassType.Name), teachEvent.ClassTypeId);
-        ViewData["SiteId"] = new SelectList(_context.Sites, "Id", nameof(Site.SiteName), teachEvent.SiteId);
-        ViewData["TeacherId"] = new SelectList(_context.Teachers, "Id", nameof(Teacher.ChineseName), teachEvent.TeacherId);
+        ViewData["ClassTypeId"] = new SelectList(context.ClassTypes, "Id", nameof(ClassType.Name), teachEvent.ClassTypeId);
+        ViewData["SiteId"] = new SelectList(context.Sites, "Id", nameof(Site.SiteName), teachEvent.SiteId);
+        ViewData["TeacherId"] = new SelectList(context.Teachers, "Id", nameof(Teacher.ChineseName), teachEvent.TeacherId);
         return View(teachEvent);
     }
 
     // GET: TeachEvents/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || _context.TeachEvents == null)
+        if (id == null || context.TeachEvents == null)
         {
             return NotFound();
         }
 
-        var teachEvent = await _context.TeachEvents
+        var teachEvent = await context.TeachEvents
             .Include(t => t.ClassType)
             .Include(t => t.Site)
             .Include(t => t.Teacher)
@@ -176,22 +169,22 @@ public class TeachEventsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (_context.TeachEvents == null)
+        if (context.TeachEvents == null)
         {
             return Problem("Entity set 'ApplicationDbContext.TeachEvents'  is null.");
         }
-        var teachEvent = await _context.TeachEvents.FindAsync(id);
+        var teachEvent = await context.TeachEvents.FindAsync(id);
         if (teachEvent != null)
         {
-            _context.TeachEvents.Remove(teachEvent);
+            context.TeachEvents.Remove(teachEvent);
         }
 
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool TeachEventExists(int id)
     {
-        return (_context.TeachEvents?.Any(e => e.Id == id)).GetValueOrDefault();
+        return (context.TeachEvents?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }

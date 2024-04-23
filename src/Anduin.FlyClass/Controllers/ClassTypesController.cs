@@ -7,32 +7,25 @@ using Microsoft.AspNetCore.Authorization;
 namespace Anduin.FlyClass.Controllers;
 
 [Authorize(Roles = "Admin")]
-public class ClassTypesController : Controller
+public class ClassTypesController(FlyClassDbContext context) : Controller
 {
-    private readonly FlyClassDbContext _context;
-
-    public ClassTypesController(FlyClassDbContext context)
-    {
-        _context = context;
-    }
-
     // GET: ClassTypes
     public async Task<IActionResult> Index()
     {
-          return _context.ClassTypes != null ? 
-                      View(await _context.ClassTypes.ToListAsync()) :
+          return context.ClassTypes != null ? 
+                      View(await context.ClassTypes.ToListAsync()) :
                       Problem("Entity set 'ApplicationDbContext.ClassTypes'  is null.");
     }
 
     // GET: ClassTypes/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || _context.ClassTypes == null)
+        if (id == null || context.ClassTypes == null)
         {
             return NotFound();
         }
 
-        var classType = await _context.ClassTypes
+        var classType = await context.ClassTypes
             .FirstOrDefaultAsync(m => m.Id == id);
         if (classType == null)
         {
@@ -57,8 +50,8 @@ public class ClassTypesController : Controller
     {
         if (ModelState.IsValid)
         {
-            _context.Add(classType);
-            await _context.SaveChangesAsync();
+            context.Add(classType);
+            await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         return View(classType);
@@ -67,12 +60,12 @@ public class ClassTypesController : Controller
     // GET: ClassTypes/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || _context.ClassTypes == null)
+        if (id == null || context.ClassTypes == null)
         {
             return NotFound();
         }
 
-        var classType = await _context.ClassTypes.FindAsync(id);
+        var classType = await context.ClassTypes.FindAsync(id);
         if (classType == null)
         {
             return NotFound();
@@ -96,8 +89,8 @@ public class ClassTypesController : Controller
         {
             try
             {
-                _context.Update(classType);
-                await _context.SaveChangesAsync();
+                context.Update(classType);
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -118,12 +111,12 @@ public class ClassTypesController : Controller
     // GET: ClassTypes/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || _context.ClassTypes == null)
+        if (id == null || context.ClassTypes == null)
         {
             return NotFound();
         }
 
-        var classType = await _context.ClassTypes
+        var classType = await context.ClassTypes
             .FirstOrDefaultAsync(m => m.Id == id);
         if (classType == null)
         {
@@ -138,22 +131,22 @@ public class ClassTypesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (_context.ClassTypes == null)
+        if (context.ClassTypes == null)
         {
             return Problem("Entity set 'ApplicationDbContext.ClassTypes'  is null.");
         }
-        var classType = await _context.ClassTypes.FindAsync(id);
+        var classType = await context.ClassTypes.FindAsync(id);
         if (classType != null)
         {
-            _context.ClassTypes.Remove(classType);
+            context.ClassTypes.Remove(classType);
         }
         
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool ClassTypeExists(int id)
     {
-      return (_context.ClassTypes?.Any(e => e.Id == id)).GetValueOrDefault();
+      return (context.ClassTypes?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }

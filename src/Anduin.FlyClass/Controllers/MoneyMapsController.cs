@@ -8,19 +8,12 @@ using Microsoft.AspNetCore.Authorization;
 namespace Anduin.FlyClass.Controllers;
 
 [Authorize(Roles = "Admin")]
-public class MoneyMapsController : Controller
+public class MoneyMapsController(FlyClassDbContext context) : Controller
 {
-    private readonly FlyClassDbContext _context;
-
-    public MoneyMapsController(FlyClassDbContext context)
-    {
-        _context = context;
-    }
-
     // GET: MoneyMaps
     public async Task<IActionResult> Index()
     {
-        var applicationDbContext = _context
+        var applicationDbContext = context
             .MoneyMaps
             .Include(m => m.ClassType)
             .Include(m => m.Level);
@@ -30,12 +23,12 @@ public class MoneyMapsController : Controller
     // GET: MoneyMaps/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || _context.MoneyMaps == null)
+        if (id == null || context.MoneyMaps == null)
         {
             return NotFound();
         }
 
-        var moneyMap = await _context.MoneyMaps
+        var moneyMap = await context.MoneyMaps
             .Include(m => m.ClassType)
             .Include(m => m.Level)
             .FirstOrDefaultAsync(m => m.Id == id);
@@ -50,8 +43,8 @@ public class MoneyMapsController : Controller
     // GET: MoneyMaps/Create
     public IActionResult Create()
     {
-        ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", nameof(ClassType.Name));
-        ViewData["LevelId"] = new SelectList(_context.Levels, "Id", nameof(Level.Name));
+        ViewData["ClassTypeId"] = new SelectList(context.ClassTypes, "Id", nameof(ClassType.Name));
+        ViewData["LevelId"] = new SelectList(context.Levels, "Id", nameof(Level.Name));
         return View();
     }
 
@@ -62,7 +55,7 @@ public class MoneyMapsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,LevelId,ClassTypeId,Bonus")] MoneyMap moneyMap)
     {
-        var conflictData = await _context.MoneyMaps
+        var conflictData = await context.MoneyMaps
             .Where(m => m.LevelId == moneyMap.LevelId)
             .Where(m => m.ClassTypeId == moneyMap.ClassTypeId)
             .AnyAsync();
@@ -73,30 +66,30 @@ public class MoneyMapsController : Controller
 
         if (!conflictData && ModelState.IsValid)
         {
-            _context.Add(moneyMap);
-            await _context.SaveChangesAsync();
+            context.Add(moneyMap);
+            await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", nameof(ClassType.Name), moneyMap.ClassTypeId);
-        ViewData["LevelId"] = new SelectList(_context.Levels, "Id", nameof(Level.Name), moneyMap.LevelId);
+        ViewData["ClassTypeId"] = new SelectList(context.ClassTypes, "Id", nameof(ClassType.Name), moneyMap.ClassTypeId);
+        ViewData["LevelId"] = new SelectList(context.Levels, "Id", nameof(Level.Name), moneyMap.LevelId);
         return View(moneyMap);
     }
 
     // GET: MoneyMaps/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || _context.MoneyMaps == null)
+        if (id == null || context.MoneyMaps == null)
         {
             return NotFound();
         }
 
-        var moneyMap = await _context.MoneyMaps.FindAsync(id);
+        var moneyMap = await context.MoneyMaps.FindAsync(id);
         if (moneyMap == null)
         {
             return NotFound();
         }
-        ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", nameof(ClassType.Name), moneyMap.ClassTypeId);
-        ViewData["LevelId"] = new SelectList(_context.Levels, "Id", nameof(Level.Name), moneyMap.LevelId);
+        ViewData["ClassTypeId"] = new SelectList(context.ClassTypes, "Id", nameof(ClassType.Name), moneyMap.ClassTypeId);
+        ViewData["LevelId"] = new SelectList(context.Levels, "Id", nameof(Level.Name), moneyMap.LevelId);
         return View(moneyMap);
     }
 
@@ -116,8 +109,8 @@ public class MoneyMapsController : Controller
         {
             try
             {
-                _context.Update(moneyMap);
-                await _context.SaveChangesAsync();
+                context.Update(moneyMap);
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -132,20 +125,20 @@ public class MoneyMapsController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
-        ViewData["ClassTypeId"] = new SelectList(_context.ClassTypes, "Id", nameof(ClassType.Name), moneyMap.ClassTypeId);
-        ViewData["LevelId"] = new SelectList(_context.Levels, "Id", nameof(Level.Name), moneyMap.LevelId);
+        ViewData["ClassTypeId"] = new SelectList(context.ClassTypes, "Id", nameof(ClassType.Name), moneyMap.ClassTypeId);
+        ViewData["LevelId"] = new SelectList(context.Levels, "Id", nameof(Level.Name), moneyMap.LevelId);
         return View(moneyMap);
     }
 
     // GET: MoneyMaps/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || _context.MoneyMaps == null)
+        if (id == null || context.MoneyMaps == null)
         {
             return NotFound();
         }
 
-        var moneyMap = await _context.MoneyMaps
+        var moneyMap = await context.MoneyMaps
             .Include(m => m.ClassType)
             .Include(m => m.Level)
             .FirstOrDefaultAsync(m => m.Id == id);
@@ -162,22 +155,22 @@ public class MoneyMapsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (_context.MoneyMaps == null)
+        if (context.MoneyMaps == null)
         {
             return Problem("Entity set 'ApplicationDbContext.MoneyMaps'  is null.");
         }
-        var moneyMap = await _context.MoneyMaps.FindAsync(id);
+        var moneyMap = await context.MoneyMaps.FindAsync(id);
         if (moneyMap != null)
         {
-            _context.MoneyMaps.Remove(moneyMap);
+            context.MoneyMaps.Remove(moneyMap);
         }
 
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool MoneyMapExists(int id)
     {
-        return _context.MoneyMaps.Any(e => e.Id == id);
+        return context.MoneyMaps.Any(e => e.Id == id);
     }
 }

@@ -10,34 +10,26 @@ using Microsoft.AspNetCore.Identity;
 namespace Anduin.FlyClass.Controllers;
 
 [Authorize(Roles = "Admin")]
-public class TeachersController : Controller
+public class TeachersController(
+    UserManager<Teacher> userManager,
+    FlyClassDbContext context)
+    : Controller
 {
-    private readonly UserManager<Teacher> userManager;
-    private readonly FlyClassDbContext _context;
-
-    public TeachersController(
-        UserManager<Teacher> userManager,
-        FlyClassDbContext context)
-    {
-        this.userManager = userManager;
-        _context = context;
-    }
-
     public async Task<IActionResult> Index()
     {
-          return _context.Teachers != null ? 
-                      View(await _context.Teachers.Include(t => t.Level).ToListAsync()) :
+          return context.Teachers != null ? 
+                      View(await context.Teachers.Include(t => t.Level).ToListAsync()) :
                       Problem("Entity set 'ApplicationDbContext.Teachers'  is null.");
     }
 
     public async Task<IActionResult> Details(string id)
     {
-        if (id == null || _context.Teachers == null)
+        if (id == null || context.Teachers == null)
         {
             return NotFound();
         }
 
-        var teacher = await _context.Teachers
+        var teacher = await context.Teachers
             .FirstOrDefaultAsync(m => m.Id == id);
         if (teacher == null)
         {
@@ -58,7 +50,7 @@ public class TeachersController : Controller
     {
         if (ModelState.IsValid)
         {
-            var defaultLevel = await _context.Levels.FirstAsync();
+            var defaultLevel = await context.Levels.FirstAsync();
             var user = new Teacher
             {
                 ChineseName = newTeacher.ChineseName,
@@ -84,18 +76,18 @@ public class TeachersController : Controller
     // GET: Teachers/Edit/5
     public async Task<IActionResult> Edit(string id)
     {
-        if (id == null || _context.Teachers == null)
+        if (id == null || context.Teachers == null)
         {
             return NotFound();
         }
 
-        var teacher = await _context.Teachers.FindAsync(id);
+        var teacher = await context.Teachers.FindAsync(id);
         if (teacher == null)
         {
             return NotFound();
         }
 
-        ViewData["LevelId"] = new SelectList(_context.Levels, "Id", nameof(Level.Name));
+        ViewData["LevelId"] = new SelectList(context.Levels, "Id", nameof(Level.Name));
         return View(new EditTeacherViewModel 
         {
             Id = id,
@@ -124,7 +116,7 @@ public class TeachersController : Controller
         {
             try
             {
-                var teacherInDb = await _context.Teachers.FindAsync(id);
+                var teacherInDb = await context.Teachers.FindAsync(id);
                 if (teacherInDb == null)
                 {
                     return NotFound();
@@ -152,8 +144,8 @@ public class TeachersController : Controller
                     await userManager.RemoveFromRoleAsync(teacherInDb, "Reviewer");
                 }
 
-                _context.Update(teacherInDb);
-                await _context.SaveChangesAsync();
+                context.Update(teacherInDb);
+                await context.SaveChangesAsync();
 
                 if (!string.IsNullOrWhiteSpace(model.Password)) 
                 {
@@ -174,19 +166,19 @@ public class TeachersController : Controller
             }
             return RedirectToAction(nameof(Index));
         }
-        ViewData["LevelId"] = new SelectList(_context.Levels, "Id", nameof(Level.Name));
+        ViewData["LevelId"] = new SelectList(context.Levels, "Id", nameof(Level.Name));
         return View(model);
     }
 
     // GET: Teachers/Delete/5
     public async Task<IActionResult> Delete(string id)
     {
-        if (id == null || _context.Teachers == null)
+        if (id == null || context.Teachers == null)
         {
             return NotFound();
         }
 
-        var teacher = await _context.Teachers
+        var teacher = await context.Teachers
             .FirstOrDefaultAsync(m => m.Id == id);
         if (teacher == null)
         {
@@ -201,25 +193,25 @@ public class TeachersController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(string id)
     {
-        if (_context.Teachers == null)
+        if (context.Teachers == null)
         {
             return Problem("Entity set 'ApplicationDbContext.Teachers'  is null.");
         }
-        var teacher = await _context.Teachers.FindAsync(id);
+        var teacher = await context.Teachers.FindAsync(id);
         if (teacher == null)
         {
             return Problem("Entity set 'ApplicationDbContext.Teachers'  is null.");
         }
         
         await userManager.RemoveFromRoleAsync(teacher, "Admin");
-        _context.Teachers.Remove(teacher);
+        context.Teachers.Remove(teacher);
         
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool TeacherExists(string id)
     {
-      return (_context.Teachers?.Any(e => e.Id == id)).GetValueOrDefault();
+      return (context.Teachers?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }

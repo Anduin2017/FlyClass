@@ -7,32 +7,25 @@ using Microsoft.AspNetCore.Authorization;
 namespace Anduin.FlyClass.Controllers;
 
 [Authorize(Roles = "Admin")]
-public class SitesController : Controller
+public class SitesController(FlyClassDbContext context) : Controller
 {
-    private readonly FlyClassDbContext _context;
-
-    public SitesController(FlyClassDbContext context)
-    {
-        _context = context;
-    }
-
     // GET: Sites
     public async Task<IActionResult> Index()
     {
-          return _context.Sites != null ? 
-                      View(await _context.Sites.ToListAsync()) :
+          return context.Sites != null ? 
+                      View(await context.Sites.ToListAsync()) :
                       Problem("Entity set 'ApplicationDbContext.Sites'  is null.");
     }
 
     // GET: Sites/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || _context.Sites == null)
+        if (id == null || context.Sites == null)
         {
             return NotFound();
         }
 
-        var site = await _context.Sites
+        var site = await context.Sites
             .FirstOrDefaultAsync(m => m.Id == id);
         if (site == null)
         {
@@ -57,8 +50,8 @@ public class SitesController : Controller
     {
         if (ModelState.IsValid)
         {
-            _context.Add(site);
-            await _context.SaveChangesAsync();
+            context.Add(site);
+            await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         return View(site);
@@ -67,12 +60,12 @@ public class SitesController : Controller
     // GET: Sites/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || _context.Sites == null)
+        if (id == null || context.Sites == null)
         {
             return NotFound();
         }
 
-        var site = await _context.Sites.FindAsync(id);
+        var site = await context.Sites.FindAsync(id);
         if (site == null)
         {
             return NotFound();
@@ -96,8 +89,8 @@ public class SitesController : Controller
         {
             try
             {
-                _context.Update(site);
-                await _context.SaveChangesAsync();
+                context.Update(site);
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -118,12 +111,12 @@ public class SitesController : Controller
     // GET: Sites/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || _context.Sites == null)
+        if (id == null || context.Sites == null)
         {
             return NotFound();
         }
 
-        var site = await _context.Sites
+        var site = await context.Sites
             .FirstOrDefaultAsync(m => m.Id == id);
         if (site == null)
         {
@@ -138,22 +131,22 @@ public class SitesController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (_context.Sites == null)
+        if (context.Sites == null)
         {
             return Problem("Entity set 'ApplicationDbContext.Sites'  is null.");
         }
-        var site = await _context.Sites.FindAsync(id);
+        var site = await context.Sites.FindAsync(id);
         if (site != null)
         {
-            _context.Sites.Remove(site);
+            context.Sites.Remove(site);
         }
         
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool SiteExists(int id)
     {
-      return (_context.Sites?.Any(e => e.Id == id)).GetValueOrDefault();
+      return (context.Sites?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }

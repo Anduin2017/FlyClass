@@ -10,19 +10,12 @@ using Anduin.FlyClass.Models.SubmitViewModels;
 namespace Anduin.FlyClass.Controllers;
 
 [Authorize]
-public class SubmitController : Controller
+public class SubmitController(FlyClassDbContext dbContext) : Controller
 {
-    private readonly FlyClassDbContext _context;
-
-    public SubmitController(FlyClassDbContext dbContext)
-    {
-        _context = dbContext;
-    }
-
     public async Task<IActionResult> Index()
     {
-        ViewData["ClassTypeId"] = new SelectList(await _context.ClassTypes.ToListAsync(), "Id", nameof(ClassType.Name));
-        ViewData["SiteId"] = new SelectList(await _context.Sites.ToListAsync(), "Id", nameof(Site.SiteName));
+        ViewData["ClassTypeId"] = new SelectList(await dbContext.ClassTypes.ToListAsync(), "Id", nameof(ClassType.Name));
+        ViewData["SiteId"] = new SelectList(await dbContext.Sites.ToListAsync(), "Id", nameof(Site.SiteName));
         return View(new SubmitIndexViewModel());
     }
 
@@ -35,14 +28,14 @@ public class SubmitController : Controller
             return View(nameof(Index), model);
         }
 
-        var user = await _context.Users.FindAsync(GetUserId(User));
+        var user = await dbContext.Users.FindAsync(GetUserId(User));
 
-        var money = await _context.MoneyMaps
+        var money = await dbContext.MoneyMaps
             .Where(m => m.ClassTypeId == model.ClassTypeId)
             .Where(m => m.LevelId == user.LevelId)
             .SingleAsync();
 
-        await _context.TeachEvents.AddAsync(new TeachEvent
+        await dbContext.TeachEvents.AddAsync(new TeachEvent
         {
             Times = model.Times,
             Comments = model.Comments,
@@ -55,7 +48,7 @@ public class SubmitController : Controller
                 model.EventTime == TimeStatus.Yesterday ? DateTime.UtcNow.Date.AddDays(-1) : throw new InvalidOperationException(),
             MoneyPaid = money.Bonus * model.Times
         });
-        await _context.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
 
         return RedirectToAction(nameof(Log));
     }
@@ -63,7 +56,7 @@ public class SubmitController : Controller
     public async Task<IActionResult> Log()
     {
         var userId = GetUserId(User);
-        var applicationDbContext = _context.TeachEvents
+        var applicationDbContext = dbContext.TeachEvents
             .Where(e => e.TeacherId == userId)
             .Include(t => t.ClassType)
             .Include(t => t.Site)

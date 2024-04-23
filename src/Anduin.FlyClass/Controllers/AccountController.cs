@@ -9,24 +9,14 @@ using Microsoft.EntityFrameworkCore;
 namespace Anduin.FlyClass.Controllers;
 
 [Authorize]
-public class AccountController : Controller
+public class AccountController(
+    FlyClassDbContext context,
+    UserManager<Teacher> userManager,
+    SignInManager<Teacher> signInManager,
+    ILoggerFactory loggerFactory)
+    : Controller
 {
-    private readonly FlyClassDbContext _context;
-    private readonly UserManager<Teacher> _userManager;
-    private readonly SignInManager<Teacher> _signInManager;
-    private readonly ILogger _logger;
-
-    public AccountController(
-        FlyClassDbContext context,
-        UserManager<Teacher> userManager,
-        SignInManager<Teacher> signInManager,
-        ILoggerFactory loggerFactory)
-    {
-        _context = context;
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _logger = loggerFactory.CreateLogger<AccountController>();
-    }
+    private readonly ILogger _logger = loggerFactory.CreateLogger<AccountController>();
 
     //
     // GET: /Account/Login
@@ -50,7 +40,7 @@ public class AccountController : Controller
         {
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
+            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 _logger.LogInformation(1, "User logged in");
@@ -92,7 +82,7 @@ public class AccountController : Controller
         ViewData["ReturnUrl"] = returnUrl;
         if (ModelState.IsValid)
         {
-            var defaultLevel = await _context.Levels.FirstAsync();
+            var defaultLevel = await context.Levels.FirstAsync();
             var user = new Teacher 
             { 
                 ChineseName = model.Name, 
@@ -100,10 +90,10 @@ public class AccountController : Controller
                 Email = model.Email,
                 LevelId = defaultLevel.Id,
             };
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                await signInManager.SignInAsync(user, isPersistent: false);
                 _logger.LogInformation(3, "User created a new account with password");
                 return RedirectToLocal(returnUrl);
             }
@@ -120,7 +110,7 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> LogOff()
     {
-        await _signInManager.SignOutAsync();
+        await signInManager.SignOutAsync();
         _logger.LogInformation(4, "User logged out");
         return RedirectToAction(nameof(HomeController.Index), "Home");
     }

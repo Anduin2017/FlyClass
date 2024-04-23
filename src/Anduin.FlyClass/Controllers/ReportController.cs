@@ -7,21 +7,14 @@ using Microsoft.EntityFrameworkCore;
 namespace Anduin.FlyClass.Controllers;
 
 [Authorize(Roles = "Admin")]
-public class ReportController : Controller
+public class ReportController(FlyClassDbContext dbContext) : Controller
 {
-    private readonly FlyClassDbContext _context;
-
-    public ReportController(FlyClassDbContext dbContext)
-    {
-        _context = dbContext;
-    }
-
     public async Task<IActionResult> Index([FromQuery]DateTime? start = null, [FromQuery]DateTime? end = null)
     {
         start ??= DateTime.MinValue;
         end ??= DateTime.MaxValue;
 
-        var allEvents = await _context.TeachEvents
+        var allEvents = await dbContext.TeachEvents
             .Include(t => t.Teacher)
             .Include(t => t.Site)
             .Where(t => t.EventTime >= start)

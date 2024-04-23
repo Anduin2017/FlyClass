@@ -7,32 +7,25 @@ using Microsoft.AspNetCore.Authorization;
 namespace Anduin.FlyClass.Controllers;
 
 [Authorize(Roles = "Admin")]
-public class LevelsController : Controller
+public class LevelsController(FlyClassDbContext context) : Controller
 {
-    private readonly FlyClassDbContext _context;
-
-    public LevelsController(FlyClassDbContext context)
-    {
-        _context = context;
-    }
-
     // GET: Levels
     public async Task<IActionResult> Index()
     {
-          return _context.Levels != null ? 
-                      View(await _context.Levels.ToListAsync()) :
+          return context.Levels != null ? 
+                      View(await context.Levels.ToListAsync()) :
                       Problem("Entity set 'ApplicationDbContext.Levels'  is null.");
     }
 
     // GET: Levels/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || _context.Levels == null)
+        if (id == null || context.Levels == null)
         {
             return NotFound();
         }
 
-        var level = await _context.Levels
+        var level = await context.Levels
             .FirstOrDefaultAsync(m => m.Id == id);
         if (level == null)
         {
@@ -57,8 +50,8 @@ public class LevelsController : Controller
     {
         if (ModelState.IsValid)
         {
-            _context.Add(level);
-            await _context.SaveChangesAsync();
+            context.Add(level);
+            await context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
         return View(level);
@@ -67,12 +60,12 @@ public class LevelsController : Controller
     // GET: Levels/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || _context.Levels == null)
+        if (id == null || context.Levels == null)
         {
             return NotFound();
         }
 
-        var level = await _context.Levels.FindAsync(id);
+        var level = await context.Levels.FindAsync(id);
         if (level == null)
         {
             return NotFound();
@@ -96,8 +89,8 @@ public class LevelsController : Controller
         {
             try
             {
-                _context.Update(level);
-                await _context.SaveChangesAsync();
+                context.Update(level);
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -118,12 +111,12 @@ public class LevelsController : Controller
     // GET: Levels/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || _context.Levels == null)
+        if (id == null || context.Levels == null)
         {
             return NotFound();
         }
 
-        var level = await _context.Levels
+        var level = await context.Levels
             .FirstOrDefaultAsync(m => m.Id == id);
         if (level == null)
         {
@@ -138,22 +131,22 @@ public class LevelsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (_context.Levels == null)
+        if (context.Levels == null)
         {
             return Problem("Entity set 'ApplicationDbContext.Levels'  is null.");
         }
-        var level = await _context.Levels.FindAsync(id);
+        var level = await context.Levels.FindAsync(id);
         if (level != null)
         {
-            _context.Levels.Remove(level);
+            context.Levels.Remove(level);
         }
         
-        await _context.SaveChangesAsync();
+        await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool LevelExists(int id)
     {
-      return (_context.Levels?.Any(e => e.Id == id)).GetValueOrDefault();
+      return (context.Levels?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }
