@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Anduin.FlyClass.Models.Teacher>
-@inject UserManager<Teacher> userManager
+@inject UserManager<Teacher> UserManager
 @{
     ViewData["Title"] = "教师管理";
 }
@@ -39,13 +39,13 @@
                 </td>
                 <td>
                     @{
-                        var isAdmin = await userManager.IsInRoleAsync(item, "Admin");
+                        var isAdmin = await UserManager.IsInRoleAsync(item, "Admin");
                     }
                     @(isAdmin ? "是" : string.Empty)
                 </td>
                 <td>
                     @{
-                        var isReviewer = await userManager.IsInRoleAsync(item, "Reviewer");
+                        var isReviewer = await UserManager.IsInRoleAsync(item, "Reviewer");
                     }
                     @(isReviewer ? "是" : string.Empty)
                 </td>
