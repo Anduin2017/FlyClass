@@ -4,17 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Anduin.FlyClass.Data;
 
-public class FlyClassDbContext : IdentityDbContext<Teacher>
+public class FlyClassDbContext(DbContextOptions<FlyClassDbContext> options) : IdentityDbContext<Teacher>(options)
 {
-    public FlyClassDbContext(DbContextOptions<FlyClassDbContext> options)
-        : base(options)
-    {
-    }
-
-    public DbSet<Teacher> Teachers { get; set; }
-    public DbSet<TeachEvent> TeachEvents { get; set; }
-    public DbSet<Level> Levels { get; set; }
-    public DbSet<Site> Sites { get; set; }
-    public DbSet<ClassType> ClassTypes { get; set; }
-    public DbSet<MoneyMap> MoneyMaps { get; set; }
+    public DbSet<Teacher> Teachers => Set<Teacher>();
+    public DbSet<TeachEvent> TeachEvents => Set<TeachEvent>();
+    public DbSet<Level> Levels => Set<Level>();
+    public DbSet<Site> Sites => Set<Site>();
+    public DbSet<ClassType> ClassTypes => Set<ClassType>();
+    public DbSet<MoneyMap> MoneyMaps => Set<MoneyMap>();
 }
