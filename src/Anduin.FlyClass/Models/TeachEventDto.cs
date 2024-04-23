@@ -1,4 +1,5 @@
 using Aiursoft.CSTools.Attributes;
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace Anduin.FlyClass.Models;
 
