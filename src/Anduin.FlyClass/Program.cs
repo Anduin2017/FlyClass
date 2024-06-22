@@ -7,7 +7,7 @@ using static Aiursoft.WebTools.Extends;
 
 namespace Anduin.FlyClass;
 
-public class Program
+public abstract class Program
 {
     public static async Task Main(string[] args)
     {
