@@ -17,7 +17,17 @@
 else
 {
     <ul class="nav navbar-nav mr-auto">
-        <li class="nav-item mr-3"><a asp-area="" asp-controller="Account" asp-action="Register">注册</a></li>
-        <li class="nav-item mr-3"><a asp-area="" asp-controller="Account" asp-action="Login">登入</a></li>
+        <li class="nav-item mr-3">
+            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">
+                <i class="fa-solid fa-user-plus"></i>
+                注册
+            </a>
+        </li>
+        <li class="nav-item mr-3">
+            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">
+                <i class="fa-solid fa-user-pen"></i>
+                登入
+            </a>
+        </li>
     </ul>
 }

@@ -14,6 +14,7 @@ public class Startup : IWebStartup
 
         services.AddMemoryCache();
         services.AddAiurSqliteWithCache<FlyClassDbContext>(connectionString);
+        
 
         services.AddIdentity<Teacher, IdentityRole>(options => options.Password = new PasswordOptions
         {
