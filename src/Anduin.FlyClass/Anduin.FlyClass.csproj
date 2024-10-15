@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Aiursoft.WebTools" Version="8.0.23" />
-    <PackageReference Include="Aiursoft.DbTools.Sqlite" Version="8.0.21" />
+    <PackageReference Include="Aiursoft.DbTools.Sqlite" Version="8.0.22" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
   </ItemGroup>
