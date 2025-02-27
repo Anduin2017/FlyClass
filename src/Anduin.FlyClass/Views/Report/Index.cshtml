@@ -53,7 +53,7 @@
             var teacher = item.First().Teacher;
             <tr>
                 <td>
-                    @teacher.ChineseName
+                    @teacher!.ChineseName
                 </td>
                 <td>
                     @item.Sum(i => i.Times)
@@ -87,7 +87,7 @@
             var site = item.First().Site;
             <tr>
                 <td>
-                    @site.SiteName
+                    @site!.SiteName
                 </td>
                 <td>
                     @item.Sum(i => i.Times)

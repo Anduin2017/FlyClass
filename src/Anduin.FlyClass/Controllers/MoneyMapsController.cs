@@ -1,5 +1,4 @@
 ﻿using Anduin.FlyClass.Entities;
-using Anduin.FlyClass.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +22,7 @@ public class MoneyMapsController(FlyClassDbContext context) : Controller
     // GET: MoneyMaps/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || context.MoneyMaps == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -78,7 +77,7 @@ public class MoneyMapsController(FlyClassDbContext context) : Controller
     // GET: MoneyMaps/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || context.MoneyMaps == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -133,7 +132,7 @@ public class MoneyMapsController(FlyClassDbContext context) : Controller
     // GET: MoneyMaps/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || context.MoneyMaps == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -155,10 +154,6 @@ public class MoneyMapsController(FlyClassDbContext context) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (context.MoneyMaps == null)
-        {
-            return Problem("Entity set 'ApplicationDbContext.MoneyMaps'  is null.");
-        }
         var moneyMap = await context.MoneyMaps.FindAsync(id);
         if (moneyMap != null)
         {

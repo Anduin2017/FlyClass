@@ -1,5 +1,4 @@
 ﻿using Anduin.FlyClass.Entities;
-using Anduin.FlyClass.Models;
 using Anduin.FlyClass.Models.ManageViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -31,17 +30,11 @@ public class ManageController(
             : "";
 
         var user = await GetCurrentUserAsync();
-        if (user == null)
-        {
-            return View("Error");
-        }
         var model = new IndexViewModel
         {
-            HasPassword = await userManager.HasPasswordAsync(user),
-            PhoneNumber = await userManager.GetPhoneNumberAsync(user),
-            TwoFactor = await userManager.GetTwoFactorEnabledAsync(user),
-            Logins = await userManager.GetLoginsAsync(user),
-            BrowserRemembered = await signInManager.IsTwoFactorClientRememberedAsync(user)
+            HasPassword = await userManager.HasPasswordAsync(user!),
+            TwoFactor = await userManager.GetTwoFactorEnabledAsync(user!),
+            BrowserRemembered = await signInManager.IsTwoFactorClientRememberedAsync(user!)
         };
         return View(model);
     }
@@ -136,7 +129,7 @@ public class ManageController(
         Error
     }
 
-    private Task<Teacher> GetCurrentUserAsync()
+    private Task<Teacher?> GetCurrentUserAsync()
     {
         return userManager.GetUserAsync(HttpContext.User);
     }

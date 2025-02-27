@@ -1,5 +1,4 @@
 ﻿using Anduin.FlyClass.Entities;
-using Anduin.FlyClass.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
@@ -12,15 +11,13 @@ public class SitesController(FlyClassDbContext context) : Controller
     // GET: Sites
     public async Task<IActionResult> Index()
     {
-          return context.Sites != null ? 
-                      View(await context.Sites.ToListAsync()) :
-                      Problem("Entity set 'ApplicationDbContext.Sites'  is null.");
+          return View(await context.Sites.ToListAsync());
     }
 
     // GET: Sites/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || context.Sites == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -60,7 +57,7 @@ public class SitesController(FlyClassDbContext context) : Controller
     // GET: Sites/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || context.Sites == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -111,7 +108,7 @@ public class SitesController(FlyClassDbContext context) : Controller
     // GET: Sites/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || context.Sites == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -131,22 +128,18 @@ public class SitesController(FlyClassDbContext context) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (context.Sites == null)
-        {
-            return Problem("Entity set 'ApplicationDbContext.Sites'  is null.");
-        }
         var site = await context.Sites.FindAsync(id);
         if (site != null)
         {
             context.Sites.Remove(site);
         }
-        
+
         await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool SiteExists(int id)
     {
-      return (context.Sites?.Any(e => e.Id == id)).GetValueOrDefault();
+      return context.Sites.Any(e => e.Id == id);
     }
 }

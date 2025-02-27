@@ -33,22 +33,22 @@
             @Html.DisplayNameFor(model => model.Teacher)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Teacher.Id)
+            @Html.DisplayFor(model => model.Teacher!.Id)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Site)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Site.Id)
+            @Html.DisplayFor(model => model.Site!.Id)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ClassType)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClassType.Id)
+            @Html.DisplayFor(model => model.ClassType!.Id)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="删除记录" class="btn btn-danger" /> |

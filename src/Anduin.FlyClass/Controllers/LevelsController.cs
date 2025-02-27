@@ -1,5 +1,4 @@
 ﻿using Anduin.FlyClass.Entities;
-using Anduin.FlyClass.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
@@ -12,15 +11,13 @@ public class LevelsController(FlyClassDbContext context) : Controller
     // GET: Levels
     public async Task<IActionResult> Index()
     {
-          return context.Levels != null ? 
-                      View(await context.Levels.ToListAsync()) :
-                      Problem("Entity set 'ApplicationDbContext.Levels'  is null.");
+          return View(await context.Levels.ToListAsync());
     }
 
     // GET: Levels/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || context.Levels == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -41,9 +38,6 @@ public class LevelsController(FlyClassDbContext context) : Controller
         return View();
     }
 
-    // POST: Levels/Create
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("Id,Name")] Level level)
@@ -60,7 +54,7 @@ public class LevelsController(FlyClassDbContext context) : Controller
     // GET: Levels/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || context.Levels == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -73,9 +67,6 @@ public class LevelsController(FlyClassDbContext context) : Controller
         return View(level);
     }
 
-    // POST: Levels/Edit/5
-    // To protect from overposting attacks, enable the specific properties you want to bind to.
-    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Level level)
@@ -111,7 +102,7 @@ public class LevelsController(FlyClassDbContext context) : Controller
     // GET: Levels/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || context.Levels == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -131,22 +122,18 @@ public class LevelsController(FlyClassDbContext context) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (context.Levels == null)
-        {
-            return Problem("Entity set 'ApplicationDbContext.Levels'  is null.");
-        }
         var level = await context.Levels.FindAsync(id);
         if (level != null)
         {
             context.Levels.Remove(level);
         }
-        
+
         await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool LevelExists(int id)
     {
-      return (context.Levels?.Any(e => e.Id == id)).GetValueOrDefault();
+        return context.Levels.Any(e => e.Id == id);
     }
 }

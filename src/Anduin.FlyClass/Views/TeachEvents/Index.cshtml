@@ -57,13 +57,13 @@
                     @Html.DisplayFor(modelItem => item.Comments)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Teacher.ChineseName)
+                    @Html.DisplayFor(modelItem => item.Teacher!.ChineseName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Site.SiteName)
+                    @Html.DisplayFor(modelItem => item.Site!.SiteName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ClassType.Name)
+                    @Html.DisplayFor(modelItem => item.ClassType!.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IsApproved)

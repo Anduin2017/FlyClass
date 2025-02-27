@@ -10,6 +10,6 @@ public class ReportViewModel
     [Display(Name = "查询结束时间")]
     public DateTime? End { get; set; }
 
-    public List<IGrouping<string, TeachEvent>> PaidByPerson { get; set; }
-    public List<IGrouping<int, TeachEvent>> PaidBySite { get; set; }
+    public required List<IGrouping<string, TeachEvent>> PaidByPerson { get; set; }
+    public required List<IGrouping<int, TeachEvent>> PaidBySite { get; set; }
 }

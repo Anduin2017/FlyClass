@@ -1,5 +1,4 @@
 ﻿using Anduin.FlyClass.Entities;
-using Anduin.FlyClass.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
@@ -12,15 +11,13 @@ public class ClassTypesController(FlyClassDbContext context) : Controller
     // GET: ClassTypes
     public async Task<IActionResult> Index()
     {
-          return context.ClassTypes != null ? 
-                      View(await context.ClassTypes.ToListAsync()) :
-                      Problem("Entity set 'ApplicationDbContext.ClassTypes'  is null.");
+        return View(await context.ClassTypes.ToListAsync());
     }
 
     // GET: ClassTypes/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || context.ClassTypes == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -60,7 +57,7 @@ public class ClassTypesController(FlyClassDbContext context) : Controller
     // GET: ClassTypes/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || context.ClassTypes == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -111,7 +108,7 @@ public class ClassTypesController(FlyClassDbContext context) : Controller
     // GET: ClassTypes/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || context.ClassTypes == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -131,22 +128,18 @@ public class ClassTypesController(FlyClassDbContext context) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (context.ClassTypes == null)
-        {
-            return Problem("Entity set 'ApplicationDbContext.ClassTypes'  is null.");
-        }
         var classType = await context.ClassTypes.FindAsync(id);
         if (classType != null)
         {
             context.ClassTypes.Remove(classType);
         }
-        
+
         await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool ClassTypeExists(int id)
     {
-      return (context.ClassTypes?.Any(e => e.Id == id)).GetValueOrDefault();
+      return context.ClassTypes.Any(e => e.Id == id);
     }
 }

@@ -184,6 +184,6 @@ public class TeachEventsController(FlyClassDbContext context) : Controller
 
     private bool TeachEventExists(int id)
     {
-        return (context.TeachEvents?.Any(e => e.Id == id)).GetValueOrDefault();
+        return context.TeachEvents.Any(e => e.Id == id);
     }
 }

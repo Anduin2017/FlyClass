@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Anduin.FlyClass.Entities;
-using Anduin.FlyClass.Models;
 using Anduin.FlyClass.Models.SubmitViewModels;
 
 namespace Anduin.FlyClass.Controllers;
@@ -16,7 +15,10 @@ public class SubmitController(FlyClassDbContext dbContext) : Controller
     {
         ViewData["ClassTypeId"] = new SelectList(await dbContext.ClassTypes.ToListAsync(), "Id", nameof(ClassType.Name));
         ViewData["SiteId"] = new SelectList(await dbContext.Sites.ToListAsync(), "Id", nameof(Site.SiteName));
-        return View(new SubmitIndexViewModel());
+        return View(new SubmitIndexViewModel
+        {
+            Comments = string.Empty
+        });
     }
 
     [HttpPost]
@@ -32,7 +34,7 @@ public class SubmitController(FlyClassDbContext dbContext) : Controller
 
         var money = await dbContext.MoneyMaps
             .Where(m => m.ClassTypeId == model.ClassTypeId)
-            .Where(m => m.LevelId == user.LevelId)
+            .Where(m => m.LevelId == user!.LevelId)
             .SingleAsync();
 
         await dbContext.TeachEvents.AddAsync(new TeachEvent
@@ -66,5 +68,5 @@ public class SubmitController(FlyClassDbContext dbContext) : Controller
     }
 
     public string GetUserId(ClaimsPrincipal user) =>
-        user.FindFirstValue(ClaimTypes.NameIdentifier);
+        user.FindFirstValue(ClaimTypes.NameIdentifier)!;
 }

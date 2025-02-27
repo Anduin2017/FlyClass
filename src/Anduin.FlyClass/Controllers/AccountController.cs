@@ -1,5 +1,4 @@
 ﻿using Anduin.FlyClass.Entities;
-using Anduin.FlyClass.Models;
 using Anduin.FlyClass.Models.AccountViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,7 +21,7 @@ public class AccountController(
     // GET: /Account/Login
     [HttpGet]
     [AllowAnonymous]
-    public IActionResult Login(string returnUrl = null)
+    public IActionResult Login(string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
         return View();
@@ -33,7 +32,7 @@ public class AccountController(
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+    public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
         if (ModelState.IsValid)
@@ -44,7 +43,7 @@ public class AccountController(
             if (result.Succeeded)
             {
                 _logger.LogInformation(1, "User logged in");
-                return RedirectToLocal(returnUrl);
+                return RedirectToLocal(returnUrl ?? "/");
             }
             if (result.IsLockedOut)
             {
@@ -66,7 +65,7 @@ public class AccountController(
     // GET: /Account/Register
     [HttpGet]
     [AllowAnonymous]
-    public IActionResult Register(string returnUrl = null)
+    public IActionResult Register(string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
         return View();
@@ -77,15 +76,15 @@ public class AccountController(
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+    public async Task<IActionResult> Register(RegisterViewModel model, string? returnUrl = null)
     {
         ViewData["ReturnUrl"] = returnUrl;
         if (ModelState.IsValid)
         {
             var defaultLevel = await context.Levels.FirstAsync();
-            var user = new Teacher 
-            { 
-                ChineseName = model.Name, 
+            var user = new Teacher
+            {
+                ChineseName = model.Name,
                 UserName = model.Email,
                 Email = model.Email,
                 LevelId = defaultLevel.Id,
@@ -95,7 +94,7 @@ public class AccountController(
             {
                 await signInManager.SignInAsync(user, isPersistent: false);
                 _logger.LogInformation(3, "User created a new account with password");
-                return RedirectToLocal(returnUrl);
+                return RedirectToLocal(returnUrl ?? "/");
             }
             AddErrors(result);
         }
