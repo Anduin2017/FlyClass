@@ -1,18 +1,9 @@
-﻿using Aiursoft.DbTools;
+using Aiursoft.DbTools;
 using Aiursoft.DbTools.Sqlite;
 using Anduin.FlyClass.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Anduin.FlyClass.Sqlite;
-
-public class SqliteContext(DbContextOptions<SqliteContext> options) : FlyClassDbContext(options)
-{
-    public override Task<bool> CanConnectAsync()
-    {
-        return Task.FromResult(true);
-    }
-}
 
 public class SqliteSupportedDb(bool allowCache, bool splitQuery) : SupportedDatabaseType<FlyClassDbContext>
 {

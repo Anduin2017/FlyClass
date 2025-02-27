@@ -1,12 +1,9 @@
-﻿using Aiursoft.DbTools;
+using Aiursoft.DbTools;
 using Aiursoft.DbTools.MySql;
 using Anduin.FlyClass.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Anduin.FlyClass.MySql;
-
-public class MySqlContext(DbContextOptions<MySqlContext> options) : FlyClassDbContext(options);
 
 public class MySqlSupportedDb(bool allowCache, bool splitQuery) : SupportedDatabaseType<FlyClassDbContext>
 {
