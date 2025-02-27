@@ -1,5 +1,4 @@
 ﻿using Aiursoft.CSTools.Tools;
-using Aiursoft.DbTools.Sqlite;
 using Aiursoft.DbTools.Switchable;
 using Aiursoft.WebTools.Abstractions.Models;
 using Anduin.FlyClass.Entities;
@@ -26,9 +25,6 @@ public class Startup : IWebStartup
             ]);
 
         services.AddMemoryCache();
-        services.AddAiurSqliteWithCache<FlyClassDbContext>(connectionString);
-
-
         services.AddIdentity<Teacher, IdentityRole>(options => options.Password = new PasswordOptions
         {
             RequireNonAlphanumeric = false,
