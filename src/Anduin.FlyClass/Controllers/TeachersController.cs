@@ -125,14 +125,13 @@ public class TeachersController(
                 if (model.IsAdmin)
                 {
                     await userManager.AddToRoleAsync(teacherInDb, "Admin");
-                    await userManager.AddToRoleAsync(teacherInDb, "Reviewer");
                 }
                 else
                 {
                     await userManager.RemoveFromRoleAsync(teacherInDb, "Admin");
                 }
 
-                if (model.IsReviewer || model.IsAdmin)
+                if (model.IsReviewer)
                 {
                     await userManager.AddToRoleAsync(teacherInDb, "Reviewer");
                 }

@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Anduin.FlyClass.Entities;
 
@@ -20,21 +19,18 @@ public class TeachEvent
     public required string TeacherId { get; init; }
     [Display(Name = "任课教师")]
     [ForeignKey(nameof(TeacherId))]
-    [NotNull]
     public Teacher? Teacher { get; init; }
 
     [Display(Name = "校区")]
     public required int SiteId { get; init; }
     [Display(Name = "校区")]
     [ForeignKey(nameof(SiteId))]
-    [NotNull]
     public Site? Site { get; init; }
 
     [Display(Name = "课程类型")]
     public required int ClassTypeId { get; init; }
     [ForeignKey(nameof(ClassTypeId))]
     [Display(Name = "课程类型")]
-    [NotNull]
     public ClassType? ClassType { get; init; }
 
     [Display(Name = "已经审批通过")]
@@ -50,9 +46,9 @@ public class TeachEvent
             EventTime = EventTime,
             Times = Times,
             Comments = Comments,
-            TeacherName = Teacher.ChineseName,
-            SiteName = Site.SiteName,
-            ClassTypeName = ClassType.Name,
+            TeacherName = Teacher!.ChineseName,
+            SiteName = Site!.SiteName,
+            ClassTypeName = ClassType!.Name,
             IsApproved = IsApproved,
             MoneyPaid = MoneyPaid
         };

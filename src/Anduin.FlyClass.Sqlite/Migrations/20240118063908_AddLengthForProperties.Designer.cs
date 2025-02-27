@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Anduin.FlyClass.Migrations
+namespace Anduin.FlyClass.Sqlite.Migrations
 {
-    [DbContext(typeof(FlyClassDbContext))]
+    [DbContext(typeof(SqliteContext))]
     [Migration("20240118063908_AddLengthForProperties")]
     partial class AddLengthForProperties
     {

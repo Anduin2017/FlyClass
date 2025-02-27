@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Anduin.FlyClass.Migrations
+namespace Anduin.FlyClass.Sqlite.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration

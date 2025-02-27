@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Anduin.FlyClass.Migrations
+namespace Anduin.FlyClass.Sqlite.Migrations
 {
-    [DbContext(typeof(FlyClassDbContext))]
+    [DbContext(typeof(SqliteContext))]
     [Migration("20230225114723_AddApprovalSystem")]
     partial class AddApprovalSystem
     {

@@ -15,7 +15,6 @@ public class Teacher : IdentityUser
     public required int LevelId { get; set; }
     [ForeignKey(nameof(LevelId))]
     [Display(Name = "教师等级")]
-    [NotNull]
     public Level? Level { get; init; }
 
     [InverseProperty(nameof(TeachEvent.Teacher))]
