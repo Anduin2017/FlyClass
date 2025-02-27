@@ -1,31 +1,31 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <OutputType>Library</OutputType>
     <TargetFramework>net9.0</TargetFramework>
+    <AssemblyName>Anduin.FlyClass.Entities</AssemblyName>
+    <RootNamespace>Anduin.FlyClass.Entities</RootNamespace>
+    <IsTestProject>false</IsTestProject>
+    <IsPackable>false</IsPackable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-<!--  <ItemGroup>-->
-<!--    <Reference Include="Aiursoft.CSTools">-->
-<!--      <HintPath>..\..\..\..\..\..\.nuget\packages\aiursoft.cstools\9.0.2\lib\net9.0\Aiursoft.CSTools.dll</HintPath>-->
-<!--    </Reference>-->
-<!--    <Reference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore">-->
-<!--      <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.aspnetcore.identity.entityframeworkcore\9.0.2\lib\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll</HintPath>-->
-<!--    </Reference>-->
-<!--    <Reference Include="Microsoft.EntityFrameworkCore">-->
-<!--      <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\9.0.2\lib\net8.0\Microsoft.EntityFrameworkCore.dll</HintPath>-->
-<!--    </Reference>-->
-<!--    <Reference Include="Microsoft.Extensions.Identity.Stores">-->
-<!--      <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.extensions.identity.stores\9.0.2\lib\net9.0\Microsoft.Extensions.Identity.Stores.dll</HintPath>-->
-<!--    </Reference>-->
-<!--  </ItemGroup>-->
-
+  <!--  <ItemGroup>-->
+  <!--    <Reference Include="Aiursoft.CSTools">-->
+  <!--      <HintPath>..\..\..\..\..\..\.nuget\packages\aiursoft.cstools\9.0.2\lib\net9.0\Aiursoft.CSTools.dll</HintPath>-->
+  <!--    </Reference>-->
+  <!--    <Reference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore">-->
+  <!--      <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.aspnetcore.identity.entityframeworkcore\9.0.2\lib\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll</HintPath>-->
+  <!--    </Reference>-->
+  <!--    <Reference Include="Microsoft.EntityFrameworkCore">-->
+  <!--      <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\9.0.2\lib\net8.0\Microsoft.EntityFrameworkCore.dll</HintPath>-->
+  <!--    </Reference>-->
+  <!--    <Reference Include="Microsoft.Extensions.Identity.Stores">-->
+  <!--      <HintPath>..\..\..\..\..\..\.nuget\packages\microsoft.extensions.identity.stores\9.0.2\lib\net9.0\Microsoft.Extensions.Identity.Stores.dll</HintPath>-->
+  <!--    </Reference>-->
+  <!--  </ItemGroup>-->
   <ItemGroup>
-    <PackageReference Include="Aiursoft.CSTools" Version="9.0.2" />
     <PackageReference Include="Aiursoft.DbTools" Version="9.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
   </ItemGroup>
-
 </Project>
