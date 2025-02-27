@@ -1,4 +1,4 @@
-﻿using Anduin.FlyClass.Data;
+﻿using Anduin.FlyClass.Entities;
 using Anduin.FlyClass.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

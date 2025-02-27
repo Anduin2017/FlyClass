@@ -1,4 +1,4 @@
-﻿using Anduin.FlyClass.Data;
+﻿using Anduin.FlyClass.Entities;
 using Anduin.FlyClass.Models.ReportViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;

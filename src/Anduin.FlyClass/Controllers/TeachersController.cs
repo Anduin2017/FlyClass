@@ -1,5 +1,4 @@
-﻿using Anduin.FlyClass.Data;
-using Anduin.FlyClass.Models;
+﻿using Anduin.FlyClass.Entities;
 using Anduin.FlyClass.Models.TeachersViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,14 +16,12 @@ public class TeachersController(
 {
     public async Task<IActionResult> Index()
     {
-          return context.Teachers != null ? 
-                      View(await context.Teachers.Include(t => t.Level).ToListAsync()) :
-                      Problem("Entity set 'ApplicationDbContext.Teachers'  is null.");
+          return View(await context.Teachers.Include(t => t.Level).ToListAsync());
     }
 
-    public async Task<IActionResult> Details(string id)
+    public async Task<IActionResult> Details(string? id)
     {
-        if (id == null || context.Teachers == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -74,9 +71,9 @@ public class TeachersController(
     }
 
     // GET: Teachers/Edit/5
-    public async Task<IActionResult> Edit(string id)
+    public async Task<IActionResult> Edit(string? id)
     {
-        if (id == null || context.Teachers == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -88,11 +85,11 @@ public class TeachersController(
         }
 
         ViewData["LevelId"] = new SelectList(context.Levels, "Id", nameof(Level.Name));
-        return View(new EditTeacherViewModel 
+        return View(new EditTeacherViewModel
         {
             Id = id,
             ChineseName = teacher.ChineseName,
-            Email = teacher.Email,
+            Email = teacher.Email!,
             LevelId = teacher.LevelId,
             IsAdmin = await userManager.IsInRoleAsync(teacher, "Admin"),
             IsReviewer = await userManager.IsInRoleAsync(teacher, "Reviewer"),
@@ -121,7 +118,7 @@ public class TeachersController(
                 {
                     return NotFound();
                 }
-                
+
                 teacherInDb.ChineseName = model.ChineseName;
                 teacherInDb.LevelId = model.LevelId;
                 teacherInDb.Email = model.Email;
@@ -147,7 +144,7 @@ public class TeachersController(
                 context.Update(teacherInDb);
                 await context.SaveChangesAsync();
 
-                if (!string.IsNullOrWhiteSpace(model.Password)) 
+                if (!string.IsNullOrWhiteSpace(model.Password))
                 {
                     var token = await userManager.GeneratePasswordResetTokenAsync(teacherInDb);
                     await userManager.ResetPasswordAsync(teacherInDb, token, model.Password);
@@ -171,9 +168,9 @@ public class TeachersController(
     }
 
     // GET: Teachers/Delete/5
-    public async Task<IActionResult> Delete(string id)
+    public async Task<IActionResult> Delete(string? id)
     {
-        if (id == null || context.Teachers == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -193,25 +190,21 @@ public class TeachersController(
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(string id)
     {
-        if (context.Teachers == null)
-        {
-            return Problem("Entity set 'ApplicationDbContext.Teachers'  is null.");
-        }
         var teacher = await context.Teachers.FindAsync(id);
         if (teacher == null)
         {
             return Problem("Entity set 'ApplicationDbContext.Teachers'  is null.");
         }
-        
+
         await userManager.RemoveFromRoleAsync(teacher, "Admin");
         context.Teachers.Remove(teacher);
-        
+
         await context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool TeacherExists(string id)
     {
-      return (context.Teachers?.Any(e => e.Id == id)).GetValueOrDefault();
+        return context.Teachers.Any(e => e.Id == id);
     }
 }

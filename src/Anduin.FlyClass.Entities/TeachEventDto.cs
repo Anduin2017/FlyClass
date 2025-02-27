@@ -1,7 +1,8 @@
 using Aiursoft.CSTools.Attributes;
+
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
-namespace Anduin.FlyClass.Models;
+namespace Anduin.FlyClass.Entities;
 
 public class TeachEventDto
 {

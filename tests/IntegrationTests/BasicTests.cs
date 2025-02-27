@@ -1,6 +1,6 @@
 ﻿using Aiursoft.CSTools.Tools;
 using Aiursoft.DbTools;
-using Anduin.FlyClass.Data;
+using Anduin.FlyClass.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Aiursoft.WebTools.Extends;
 
@@ -25,7 +25,7 @@ public class BasicTests
     public async Task CreateServer()
     {
         _server = await AppAsync<Startup>([], port: _port);
-        await _server.UpdateDbAsync<FlyClassDbContext>(UpdateMode.RecreateThenUse);
+        await _server.UpdateDbAsync<FlyClassDbContext>();
         await _server.SeedAsync();
         await _server.StartAsync();
     }

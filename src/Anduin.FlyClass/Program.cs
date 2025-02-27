@@ -1,6 +1,5 @@
 ﻿using Aiursoft.DbTools;
-using Anduin.FlyClass.Data;
-using Anduin.FlyClass.Models;
+using Anduin.FlyClass.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using static Aiursoft.WebTools.Extends;
@@ -12,7 +11,7 @@ public abstract class Program
     public static async Task Main(string[] args)
     {
         var app = await AppAsync<Startup>(args);
-        await app.UpdateDbAsync<FlyClassDbContext>(UpdateMode.MigrateThenUse);
+        await app.UpdateDbAsync<FlyClassDbContext>();
         await app.SeedAsync();
         await app.RunAsync();
     }
@@ -122,7 +121,7 @@ public static class ProgramExtends
 
         if (!await db.Teachers.AnyAsync())
         {
-            var defaultLevel = await db.Levels.OrderByDescending(t => t.Id).FirstOrDefaultAsync();
+            var defaultLevel = await db.Levels.OrderByDescending(t => t.Id).FirstAsync();
             var user = new Teacher
             {
                 ChineseName = "管理员",

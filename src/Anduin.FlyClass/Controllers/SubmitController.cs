@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using Anduin.FlyClass.Data;
+using Anduin.FlyClass.Entities;
 using Anduin.FlyClass.Models;
 using Anduin.FlyClass.Models.SubmitViewModels;
 

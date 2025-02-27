@@ -1,4 +1,5 @@
-﻿@inject SignInManager<Teacher> SignInManager
+﻿@using Anduin.FlyClass.Entities
+@inject SignInManager<Teacher> SignInManager
 @inject UserManager<Teacher> UserManager
 
 @if (SignInManager.IsSignedIn(User))

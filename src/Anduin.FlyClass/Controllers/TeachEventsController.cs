@@ -1,6 +1,5 @@
 ﻿using Aiursoft.CSTools.Tools;
-using Anduin.FlyClass.Data;
-using Anduin.FlyClass.Models;
+using Anduin.FlyClass.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +36,7 @@ public class TeachEventsController(FlyClassDbContext context) : Controller
     // GET: TeachEvents/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || context.TeachEvents == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -63,7 +62,11 @@ public class TeachEventsController(FlyClassDbContext context) : Controller
         ViewData["TeacherId"] = new SelectList(await context.Teachers.ToListAsync(), "Id", nameof(Teacher.ChineseName));
         return View(model: new TeachEvent
         {
-            EventTime = DateTime.UtcNow
+            EventTime = DateTime.UtcNow,
+            Comments = string.Empty,
+            TeacherId = string.Empty,
+            SiteId = 0,
+            ClassTypeId = 0
         });
     }
 
@@ -89,7 +92,7 @@ public class TeachEventsController(FlyClassDbContext context) : Controller
     // GET: TeachEvents/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || context.TeachEvents == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -146,7 +149,7 @@ public class TeachEventsController(FlyClassDbContext context) : Controller
     // GET: TeachEvents/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || context.TeachEvents == null)
+        if (id == null)
         {
             return NotFound();
         }
@@ -169,10 +172,6 @@ public class TeachEventsController(FlyClassDbContext context) : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (context.TeachEvents == null)
-        {
-            return Problem("Entity set 'ApplicationDbContext.TeachEvents'  is null.");
-        }
         var teachEvent = await context.TeachEvents.FindAsync(id);
         if (teachEvent != null)
         {

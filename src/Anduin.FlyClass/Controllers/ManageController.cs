@@ -1,4 +1,5 @@
-﻿using Anduin.FlyClass.Models;
+﻿using Anduin.FlyClass.Entities;
+using Anduin.FlyClass.Models;
 using Anduin.FlyClass.Models.ManageViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Anduin.FlyClass.Entities;
 
 namespace Anduin.FlyClass.Models.ReportViewModels;
 
