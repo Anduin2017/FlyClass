@@ -5,7 +5,7 @@
 [![Test Coverage](https://gitlab.aiursoft.cn/anduin/flyclass/badges/master/coverage.svg)](https://gitlab.aiursoft.cn/anduin/flyclass/-/pipelines)
 [![ManHours](https://manhours.aiursoft.cn/r/gitlab.aiursoft.cn/anduin/flyclass.svg)](https://gitlab.aiursoft.cn/anduin/flyclass/-/commits/master?ref_type=heads)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fflyclass.aiursoft.cn)](https://flyclass.aiursoft.cn)
-[![Docker](https://img.shields.io/badge/docker-latest-blue?logo=docker)](https://hub.aiursoft.cn/#!/taglist/anduin/flyclass)
+[![Docker](https://img.shields.io/docker/pulls/anduin2019/flyclass.svg)](https://hub.docker.com/r/anduin2019/flyclass)
 
 FlyClass is a simple class registration system.
 
@@ -54,7 +54,7 @@ First, install Docker [here](https://docs.docker.com/get-docker/).
 Then run the following commands in a Linux shell:
 
 ```bash
-image=anduin/flyclass
+image=anduin2019/flyclass
 appName=flyclass
 sudo docker pull $image
 sudo docker run -d --name $appName --restart unless-stopped -p 5000:5000 -v /var/www/$appName:/data $image
@@ -66,7 +66,7 @@ The docker image has the following context:
 
 | Properties  | Value                           |
 |-------------|---------------------------------|
-| Image       | hub.aiursoft.cn/anduin/flyclass |
+| Image       | anduin2019/flyclass |
 | Ports       | 5000                            |
 | Binary path | /app                            |
 | Data path   | /data                           |
