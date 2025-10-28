@@ -3,7 +3,7 @@
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://gitlab.aiursoft.com/anduin/flyclass/-/blob/master/LICENSE)
 [![Pipeline stat](https://gitlab.aiursoft.com/anduin/flyclass/badges/master/pipeline.svg)](https://gitlab.aiursoft.com/anduin/flyclass/-/pipelines)
 [![Test Coverage](https://gitlab.aiursoft.com/anduin/flyclass/badges/master/coverage.svg)](https://gitlab.aiursoft.com/anduin/flyclass/-/pipelines)
-[![ManHours](https://manhours.aiursoft.cn/r/gitlab.aiursoft.com/anduin/flyclass.svg)](https://gitlab.aiursoft.com/anduin/flyclass/-/commits/master?ref_type=heads)
+[![ManHours](https://manhours.aiursoft.com/r/gitlab.aiursoft.com/anduin/flyclass.svg)](https://gitlab.aiursoft.com/anduin/flyclass/-/commits/master?ref_type=heads)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fflyclass.aiursoft.cn)](https://flyclass.aiursoft.cn)
 [![Docker](https://img.shields.io/docker/pulls/anduin2019/flyclass.svg)](https://hub.docker.com/r/anduin2019/flyclass)
 
