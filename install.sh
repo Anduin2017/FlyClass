@@ -1,7 +1,7 @@
-aiur() { arg="$( cut -d ' ' -f 2- <<< "$@" )" && curl -sL https://gitlab.aiursoft.cn/aiursoft/aiurscript/-/raw/master/$1.sh | sudo bash -s $arg; }
+aiur() { arg="$( cut -d ' ' -f 2- <<< "$@" )" && curl -sL https://gitlab.aiursoft.com/aiursoft/aiurscript/-/raw/master/$1.sh | sudo bash -s $arg; }
 
 app_name="flyclass"
-repo_path="https://gitlab.aiursoft.cn/anduin/flyclass"
+repo_path="https://gitlab.aiursoft.com/anduin/flyclass"
 proj_path="src/Anduin.FlyClass/Anduin.FlyClass.csproj"
 
 get_dll_name()
