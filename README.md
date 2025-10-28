@@ -4,7 +4,7 @@
 [![Pipeline stat](https://gitlab.aiursoft.com/anduin/flyclass/badges/master/pipeline.svg)](https://gitlab.aiursoft.com/anduin/flyclass/-/pipelines)
 [![Test Coverage](https://gitlab.aiursoft.com/anduin/flyclass/badges/master/coverage.svg)](https://gitlab.aiursoft.com/anduin/flyclass/-/pipelines)
 [![ManHours](https://manhours.aiursoft.com/r/gitlab.aiursoft.com/anduin/flyclass.svg)](https://gitlab.aiursoft.com/anduin/flyclass/-/commits/master?ref_type=heads)
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fflyclass.aiursoft.cn)](https://flyclass.aiursoft.cn)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fflyclass.aiursoft.com)](https://flyclass.aiursoft.com)
 [![Docker](https://img.shields.io/docker/pulls/anduin2019/flyclass.svg)](https://hub.docker.com/r/anduin2019/flyclass)
 
 FlyClass is a simple class registration system.
@@ -13,7 +13,7 @@ Default user name is `admin@default.com` and default password is `admin123`.
 
 ## Try
 
-Try a running FlyClass [here](https://flyclass.aiursoft.cn).
+Try a running FlyClass [here](https://flyclass.aiursoft.com).
 
 ## Run in Ubuntu
 
