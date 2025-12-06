@@ -1,7 +1,7 @@
 ﻿using Aiursoft.CSTools.Tools;
 using Aiursoft.DbTools;
 using Anduin.FlyClass.Entities;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using static Aiursoft.WebTools.Extends;
 
 namespace Anduin.FlyClass.Tests.IntegrationTests;
