@@ -116,7 +116,7 @@ public static class ProgramExtends
                 Email = "admin@default.com",
                 LevelId = defaultLevel.Id,
             };
-            _ = await userManager.CreateAsync(user, "admin123");
+            _ = await userManager.CreateAsync(user, "Admin@123456!");
             await userManager.AddToRoleAsync(user, "Admin");
         }
         return host;
